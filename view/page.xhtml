@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <title>#{ @title ||= config.site_name }</title>
+    #{%w[reset 960 text screen].map{|c| css(c) }.join("\n")}
+    #{js('jquery')}
+  </head>
+  <body>
+    <div id="main" class="container_16">
+      <div id="header" class="grid_16" />
+        <div id="logo" class="grid_5 alpha">
+          <a href="/"><img src="/media/sociar.png" alt="Sociar" /></a>
+        </div>
+        <div id="menu" class="grid_11 omega">
+          <a href="#">Newest Stuff</a>
+          <a href="#">Dashboard</a>
+          <?r if logged_in? ?>
+            #{ A 'Admin', :href => R(AdminController) }
+            #{ A 'Logout', :href => R(AccountController, :logout) }
+          <?r else ?>
+            #{ A 'Login', :href => R(AccountController, :login) }
+            #{ A 'Register', :href => R(AccountController, :register) }
+          <?r end ?>
+        </div>
+        <div id="flashbox" class="grid_11 omega">
+          #{flashbox}
+        </div>
+      </div>
+
+      <div id="main">
+        <div id="content-side" class="grid_12 alpha">
+          #@content
+        </div>
+
+        <div id="latest-side" class="grid_3 omega">
+          <div id="featured-member">
+            <h2>Featured Member</h2>
+          </div>
+          <div id="latest-comments">
+            <h2>Latest Comments</h2>
+          </div>
+          <div id="newest-members">
+            <h2>Newest Members</h2>
+          </div>
+          <div id="newest-pictures">
+            <h2>Newest Pictures</h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer" class="grid_16">
+        <p>
+          Sociar is a Free Open Source Social Network Platform.
+          &copy; 2008 by Michael 'manveru' Fellinger<br />
+          <a href="#">Download Free</a>
+          <a href="#">Demo</a>
+          <a href="#">Technical Notes</a>
+          <a href="#">Contact Us</a>
+          <a href="#">Blog</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

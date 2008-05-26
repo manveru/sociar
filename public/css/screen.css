@@ -1,0 +1,80 @@
+body {
+  background: #111;
+  color: #fff;
+}
+
+#header {
+  padding-bottom: 1em;
+}
+
+#menu {
+  text-align: center;
+}
+
+#menu a {
+  font-size: 1.2em;
+  text-decoration: none;
+  margin-left: 1em;
+}
+
+#latest-side h2 {
+  font-size: 1em;
+}
+
+#flashbox {
+  /* border: 1px solid black; */
+  text-align: center;
+  overflow: auto;
+  height: 3.1em;
+}
+
+#flashbox .good {
+  background: #6f6;
+  /* padding: 0.5em; */
+}
+
+div {
+  background: #222;
+}
+
+#sub_nav {
+  background: #eee;
+}
+
+div.blurp p {
+  margin-bottom: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+#sub_nav a {
+  display: block;
+}
+
+#footer {
+  font-size: 0.8em;
+  text-align: center;
+  background: #000;
+}
+
+h1 {
+  text-align: center;
+}
+
+legend {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+}
+
+input {
+  background: #fff;
+  border: 1px solid #aaa;
+}
+
+input:focus {
+  border: 1px solid #faa;
+}

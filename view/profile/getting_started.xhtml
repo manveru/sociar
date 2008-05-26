@@ -1,0 +1,57 @@
+<div class="grid_10" id="profile-getting_started">
+  <h1>How to get started</h1>
+
+  <?r if profile_empty? ?>
+    <div class="blurp grid_10">
+      <b class="grid_3 alpha">Set up your profile<br />
+        <img src="/media/blurp_profile.png" title="Profile icon" alt="Profile icon" />
+      </b>
+      <p class="grid_7 omega">
+        Your public profile is the way your friends will learn about you and keep up-to-date on your life. Upload a profile photo, add an "about me", connect with new and old friends.
+      </p>
+    </div>
+  <?r end ?>
+
+  <?r if photos_empty? ?>
+    <div class="blurp grid_10">
+      <b class="grid_3 alpha">Share photos<br />
+        <img src="/media/blurp_photos.png" title="Profile icon" alt="Profile icon" />
+      </b>
+      <p class="grid_7 omega">
+        #{config.site_name} allows users to upload images with captions to their profile. We love someone to build albums, tagging and commenting on photos for this open source project!
+      </p>
+    </div>
+  <?r end ?>
+
+  <?r if friends_empty? ?>
+    <div class="blurp grid_10">
+      <b class="grid_3 alpha">Find friends<br />
+      <img src="/media/blurp_friends.png" title="Profile icon" alt="Profile icon" />
+      </b>
+      <p class="grid_7 omega">
+        Finding your friends is easy, get started by searching for profiles on #{config.site_name}.
+        <a href="/profile/search">To the search</a>.
+      </p>
+    </div>
+  <?r end ?>
+
+  <?r if messages_empty? ?>
+    <div class="blurp grid_10">
+      <b class="grid_3 alpha">Message friends<br />
+      <img src="/media/blurp_message.png" title="Profile icon" alt="Profile icon" />
+      </b>
+      <p class="grid_7 omega">
+        Exchange messages with friends and other people on #{config.site_name}. We already sent you a message to get you started, go check it out in <a href="/message">your messages</a>.
+      </p>
+    </div>
+  <?r end ?>
+
+  <div class="blurp grid_10">
+    <b class="grid_3 alpha">Start blogging<br />
+    <img src="/media/blurp_comment.png" title="Profile icon" alt="Profile icon" />
+    </b>
+    <p class="grid_7 omega">
+      Share your thoughts with the world, no matter if you want to write whole essays or just a little something about how you feel. Just head over to <a href="/blog">your blog</a> and check it out.
+    </p>
+  </div>
+</div>

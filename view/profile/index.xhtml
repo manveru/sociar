@@ -1,0 +1,17 @@
+<div class="grid_3" id="sub_nav">
+  <a href="#">View Public Profile</a>
+  <a href="#">Messages Center</a>
+  <a href="#">Manage Photos</a>
+  <a href="#">My Network</a>
+  <a href="#">The Blog</a>
+  #{ A 'Account Settings', :href => Rs(:edit) }
+
+  <div class="avatar">
+    <img src="#{@profile.avatar}" />
+  </div>
+</div>
+<div class="grid_8">
+  <h1>Dashboard</h1>
+  #{ render_template 'show.xhtml' }
+  #{ render_template 'getting_started.xhtml' }
+</div>
