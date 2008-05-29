@@ -2,6 +2,7 @@ class Profile < Sequel::Model
   MODELS << self
 
   include Ramaze::Helper::CGI
+  include Ramaze::Helper::Gravatar
 
   set_schema do
     primary_key :id
@@ -68,8 +69,12 @@ class Profile < Sequel::Model
     Maruku.new(h(about_me)).to_html
   end
 
-  def avatar(size = 'big')
-    "/media/avatar/default_#{size}.png"
+  def avatar(size = 50)
+    gravatar(email, size, "/media/avatar/default_big.png")
+  rescue => ex
+    Ramaze::Log.error(ex)
+    s = { 50 => 'small', 100 => 'medium', 150 => 'big' }[size]
+    "/media/avatar/default_#{s}.png"
   end
 
   # sizes are

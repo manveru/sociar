@@ -1,5 +1,5 @@
 class ProfileController < AppController
-  helper :form
+  helper :form, :gravatar
 
   def index(nick = nil)
     if nick
