@@ -2,20 +2,28 @@
   <form method="POST" name="login">
     <fieldset>
       <legend>Login</legend>
+
+      <p>#{ A 'OpenID login is over here', :href => Rs(:openid) }</p>
+
       <label for="login-name">Name:</label>
       <input type="text" name="login" id="login-name" />
 
       <label for="login-pass">Password:</label>
       <input type="password" name="password" id="login-pass" />
 
+      <!--FIXME: This shouldn't need <p></p>-->
+
       <p>
         <label for="login-remember">Remember me:</label>
         <input type="checkbox" name="remember_me" id="login-remember" />
       </p>
 
-      <input type="submit" value="Log-in Now" />
+      <input type="submit" value="Log-in Now" class="button" />
+
+      <div class="form-advice grid_6 omega">
+        #{ A "Haven't got an account yet?", :href => Rs(:register) }
+        #{ A "Forgot your password?", :href => Rs(:forgot) }
+      </div>
     </fieldset>
   </form>
-
-  <a href="/account/forgot_password">I forgot my password</a>
 </div>

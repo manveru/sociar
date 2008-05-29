@@ -1,0 +1,22 @@
+<div id="login">
+  <form method="POST" name="login">
+    <fieldset>
+      <legend>OpenID Login</legend>
+
+      <p>#{ A 'Standard login is over here', :href => Rs(:login) }</p>
+
+      <label for="login-name">OpenID:</label>
+      <input type="text" name="login" id="login-name" />
+
+      <div class="clear">&nbsp;</div>
+      <label for="login-remember">Remember me:</label>
+      <input type="checkbox" name="remember_me" id="login-remember" />
+
+      <input type="submit" value="Log-in Now" class="button" />
+
+      <div class="form-advice grid_6 omega">
+        #{ A "Haven't got an account yet?", :href => Rs(:register) }
+      </div>
+    </fieldset>
+  </form>
+</div>

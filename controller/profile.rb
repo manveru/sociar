@@ -1,8 +1,15 @@
 class ProfileController < AppController
-  def index
+  def index(nick = nil)
+    if nick
+      redirect Rs(:show, nick)
+    else
+      @user = user
+      @profile = @user.profile
+    end
   end
 
-  def show(login = nil)
+  def show(login)
+    # flash[:good] = ['something good', 'and more goodness', 'even more here']
     if login
       @user = User[:login => login]
     else
@@ -11,13 +18,15 @@ class ProfileController < AppController
     redirect R(:/) unless @user.login
 
     @profile = @user.profile
+    @flickr = @profile.flickr_photos
+    @comments = Comment.all
   end
 
   private
 
   def profile_item(title, value)
     return '' unless value
-    %|<b class="grid_3">#{title}</b> <p class="grid_7">#{value}</p>|
+    %|<tr><td class="key">#{title}:</td><td class="value">#{value}</td></tr>|
   end
 
   def profile_empty?

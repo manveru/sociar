@@ -1,4 +1,6 @@
 class Profile < Sequel::Model
+  MODELS << self
+
   include Ramaze::Helper::CGI
 
   set_schema do
@@ -6,8 +8,7 @@ class Profile < Sequel::Model
 
     text :about_me
 
-    varchar :first_name
-    varchar :last_name
+    varchar :name
     varchar :website
     varchar :blog
     varchar :flickr
@@ -67,35 +68,50 @@ class Profile < Sequel::Model
     Maruku.new(h(about_me)).to_html
   end
 
-  # Links
-
-  def website_link
-    link = h(website)
-    %|<a href="#{link}">#{link}</a>|
-  end
-
-  def blog_link
-    %|Link to blog|
-  end
-
-  def aim_link
-    name = h(aim_name)
-    %|<a href="aim:goim?screenname=#{name}">#{name}</a>|
-  end
-
-  def gtalk_link
-    name = h(gtalk_name)
-    %|<a href="xmpp:#{name}">#{name}</a>|
-  end
-
-  def ichat_link
-    name = h(ichat_name)
-    %|<a href="ichat:#{name}">#{name}</a>|
-  end
-
   def avatar(size = 'big')
     "/media/avatar/default_#{size}.png"
   end
 
-  MODELS << self
+  def flickr_photos
+    return [] unless flickr_name
+    user = FLICKR.users(flickr_name)
+    photos = user.photos
+    photos || []
+  rescue
+    []
+  end
+
+  # Links
+
+  def website_link
+    flink website
+  end
+
+  def blog_link
+    flink blog
+  end
+
+  def flickr_link
+    flink flickr
+  end
+
+  def aim_link
+    flink aim_name, '<a href="aim:goim?screenname=%value">%value</a>'
+  end
+
+  def gtalk_link
+    flink gtalk_name, '<a href="xmpp:%value">%value</a>'
+  end
+
+  def ichat_link
+    flink ichat_name, '<a href="ichat:%value">%value</a>'
+  end
+
+  private
+
+  def flink(value, url = '<a href="%value">%value</a>')
+    return unless value
+    esc = h(value)
+    url.gsub('%value', esc)
+  end
 end

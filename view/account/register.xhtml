@@ -1,7 +1,8 @@
 <div id="register">
-  <form method="POST" name="register">
+  <form method="post" action="/account/register" name="register">
     <fieldset>
       <legend>Sign up</legend>
+
       <p>Welcome to #{config.site_name}, we are currently in private beta.</p>
 
       <?r @user.errors.full_messages.each do |msg| ?>
@@ -12,20 +13,30 @@
       <input type="text" name="login" id="register-login" value="#{@login}" />
 
       <label for="register-email">Email:</label>
-      <input type="text" name="email" value="#{@email}" />
+      <input type="text" name="email" id="register-email" value="#{@email}" />
 
       <label for="register-password">Password:</label>
-      <input type="password" name="password" />
+      <input type="password" name="password" id="register-password" />
 
       <label for="register-password-confirmation">Password confirmation:</label>
       <input type="password" name="password_confirmation" id="register-password-confirmation" />
 
-      <p>
-        <label for="login-remember">Remember me:</label>
-        <input type="checkbox" name="remember_me" id="login-remember" checked="checked" />
-      </p>
+      <label for="register-captcha">What is #{simple_captcha}?</label>
+      <input type="text" name="captcha" id="register-captcha" />
 
-      <input type="submit" value="Sign up" />
+      <div class="clear">&nbsp;</div>
+      <label for="login-tos">Accept <a href="/tos">Terms of Service</a>:</label>
+      <input type="checkbox" name="tos" id="login-tos" />
+
+      <div class="clear">&nbsp;</div>
+      <label for="login-remember">Remember me:</label>
+      <input type="checkbox" name="remember_me" id="login-remember" checked="checked" />
+
+      <input type="submit" value="Sign up Now" class="button" />
+
+      <div class="form-advice grid_6 omega">
+        #{ A "Got an account already?", :href => Rs(:login) }
+      </div>
     </fieldset>
   </form>
 </div>

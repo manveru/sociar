@@ -13,9 +13,11 @@ class Photo < Sequel::Model
     foreign_key :profile_id
   end
 
+  validations.clear
+  validates_presence_of :image, :profile_id
+
   has_many :comments
   belongs_to :profile
-  validates_presence_of :image, :profile_id
 
   after_create do
     p :create => :FeedItem

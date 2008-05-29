@@ -1,5 +1,5 @@
 class AppController < Ramaze::Controller
-  box = '<div class="%key" onclick="$(this).slideUp(250);">%value</div>'
+  box = '<div class="%key" onclick="$(this).slideUp(250);">[Hide] %value</div>'
   trait :flashbox => box
 
   def self.inherited(klass)
@@ -9,14 +9,15 @@ class AppController < Ramaze::Controller
   end
 end
 
-require 'controller/main'
 require 'controller/account'
 require 'controller/admin'
 require 'controller/blog'
 require 'controller/comment'
+require 'controller/css'
 require 'controller/feed'
 require 'controller/friend'
 require 'controller/home'
+require 'controller/main'
 require 'controller/message'
 require 'controller/photo'
 require 'controller/profile'

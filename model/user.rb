@@ -2,9 +2,10 @@ class User < Sequel::Model
   set_schema do
     primary_key :id
 
-    varchar :login,    :size => 255, :unique => true
+    varchar :login, :size => 255, :unique => true
+    varchar :openid, :unique => true
     varchar :crypted_password, :size => 40
-    varchar :salt,     :size => 40
+    varchar :salt, :size => 40
 
     varchar :timezone, :size => 3, :default => 'UTC'
 
@@ -80,6 +81,26 @@ class User < Sequel::Model
       return user unless pass # we don't store the password in the session...
       user if user.authenticated?(pass)
     end
+  end
+
+  # Quick profile access
+  include Ramaze::Helper::Link
+  include Ramaze::Helper::CGI
+
+  def profile_url
+    R(ProfileController, :show, h(login))
+  end
+
+  def location_url
+    R(ProfileController, :search, h(location))
+  end
+
+  def avatar_url(size)
+    profile.avatar(size)
+  end
+
+  def location
+    profile.location
   end
 
   private

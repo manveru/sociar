@@ -2,6 +2,7 @@ require 'sequel'
 require 'scaffolding_extensions'
 
 DB = Sequel.sqlite
+# DB.logger = Ramaze::Log
 MODELS = []
 
 require 'model/account_mailer'

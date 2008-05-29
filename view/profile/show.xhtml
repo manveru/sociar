@@ -1,8 +1,53 @@
-<div class="grid_10" id="profile-show">
-  #{profile_item 'About',   @profile.about_me_html}
-  #{profile_item 'Website', @profile.website_link}
-  #{profile_item 'Blog',    @profile.blog_link}
-  #{profile_item 'AIM',     @profile.aim_link}
-  #{profile_item 'GTalk',   @profile.gtalk_link}
-  #{profile_item 'IChat',   @profile.ichat_link}
+<div id="profile">
+  <div id="sub_menu" class="clearfix">
+    <?r if @user == user ?>
+      #{ A 'Edit profile', :href => Rs(:edit) }
+    <?r end ?>
+  </div>
+
+  <div id="summary" class="clearfix">
+    <div id="avatar">
+      <img src="/media/avatar/default_big.png" />
+    </div>
+
+    <div id="name-location">
+      <h1>#{@profile.name}</h1>
+      <a href="#{@user.location_url}" class="location">#{h @user.location}</a>
+    </div>
+
+    <table id="info">
+      #{profile_item 'About',   @profile.about_me}
+      #{profile_item 'Website', @profile.website_link}
+      #{profile_item 'Blog',    @profile.blog_link}
+      #{profile_item 'AIM',     @profile.aim_link}
+      #{profile_item 'GTalk',   @profile.gtalk_link}
+      #{profile_item 'IChat',   @profile.ichat_link}
+      #{profile_item 'Flickr',  @profile.flickr_link}
+    </table>
+  </div>
+
+  <div id="comments" class="clearfix">
+    <h3>Comments</h3>
+    <?r if logged_in? ?>
+      <a onclick="return $('#comment').toggle(500);">Leave a comment</a>
+      <div id="comment">
+        <form action="#{R CommentController, :profile, @user.id }" name="comment">
+          <textarea name="comment"></textarea>
+          <input type="submit" class="button" value="Add Comment" />
+        </form>
+      </div>
+      <script>$('#comment').hide();</script>
+    <?r end ?>
+    <?r @comments.each do |comment| ?>
+      #{comment}
+    <?r end ?>
+  </div>
+
+  <div id="flickr" class="clearfix">
+    <h3>Latest Flickr Pictures</h3>
+
+    <?r @flickr.each do |img| ?>
+      <a href="#{img.source}"><img src="#{img.source}" /></a>
+    <?r end ?>
+  </div>
 </div>

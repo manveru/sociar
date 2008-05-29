@@ -1,0 +1,16 @@
+<div id="content" class="grid_15">
+  <div class="grid_10">
+  <h1>#{@user.profile.name}'s Blog</h1>
+  <?r @blogs.each do |blog| ?>
+    <h2>#{blog.title}</h2>
+    <p>#{blog.body}</p>
+  <?r end ?>
+  </div>
+  <div class="grid_4">
+    <h3>Blog History</h3>
+    <?r @blogs.each do |blog| ?>
+      <a href="#">#{blog.title}</a><br />
+      Written about 1 month ago.
+    <?r end ?>
+  </div>
+</div>

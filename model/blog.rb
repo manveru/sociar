@@ -11,7 +11,9 @@ class Blog < Sequel::Model
     foreign_key :profile_id
   end
 
+  validations.clear
   validates_presence_of :title, :body
+
   belongs_to :profile
   has_many :comments
 

@@ -16,12 +16,23 @@ class Comment < Sequel::Model
     # integer :is_denied, :default => 0
   end
 
+  validations.clear
   validates_presence_of :comment, :profile
 
   has_many :comments
   belongs_to :profile
 
+  before_save do
+    self.updated_at = Time.now
+  end
+
+  before_create do
+    self.created_at = Time.now
+  end
+
   after_create do
+    feed_item = FeedItem.create(:item => self)
+
     p :create => :FeedItem
     # feed_item = FeedItem.create(:item => self)
     # ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
