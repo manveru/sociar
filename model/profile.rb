@@ -70,10 +70,10 @@ class Profile < Sequel::Model
   end
 
   def avatar(size = 50)
-    gravatar(email, size, "/media/avatar/default_big.png")
+    s = { 50 => 'small', 100 => 'medium', 150 => 'big' }[size]
+    gravatar(email, size, "/media/avatar/default_#{s}.png")
   rescue => ex
     Ramaze::Log.error(ex)
-    s = { 50 => 'small', 100 => 'medium', 150 => 'big' }[size]
     "/media/avatar/default_#{s}.png"
   end
 

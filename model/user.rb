@@ -103,7 +103,7 @@ class User < Sequel::Model
     R(ProfileController, :search, h(location))
   end
 
-  def avatar_url(size)
+  def avatar(size)
     profile.avatar(size)
   end
 

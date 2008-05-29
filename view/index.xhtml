@@ -20,7 +20,7 @@
     <?r if @users.each{|user| ?>
       <div class="member clearfix">
         <div class="avatar">
-          <a href="#{user.profile_url}"><img src="#{user.avatar_url(:small)}" alt="Avatar" /></a>
+          <a href="#{user.profile_url}"><img src="#{user.avatar(50)}" alt="Avatar" /></a>
         </div>
         <div class="info">
           <a href="#{user.profile_url}" class="name">#{h user.profile.name}</a>
