@@ -36,6 +36,9 @@ class User < Sequel::Model
   validates_length_of :password, :within => 6..255
   validates_length_of :login, :within => 3..255
 
+  before_create{ self.created_at = Time.now }
+  before_save{ self.updated_at = Time.now }
+
   # Remember until next year
   def remember_me
     self.remember_token_expires_at = Time.now.utc + (1 * 365 * 24 * 60 * 60)
@@ -83,6 +86,10 @@ class User < Sequel::Model
     end
   end
 
+  def self.latest(n = 10)
+    order(:created_at.desc).limit(n).eager(:profile)
+  end
+
   # Quick profile access
   include Ramaze::Helper::Link
   include Ramaze::Helper::CGI
@@ -90,6 +97,7 @@ class User < Sequel::Model
   def profile_url
     R(ProfileController, :show, h(login))
   end
+  alias to_url profile_url
 
   def location_url
     R(ProfileController, :search, h(location))

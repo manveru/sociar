@@ -16,7 +16,7 @@ legend
 
 label
   :float left
-  :width 160px
+  :width 190px
 
 .form-advice
   :margin-top 1em
@@ -35,8 +35,8 @@ input, select
   :margin 2px
 
 textarea
-  :background #222
-  :border 1px solid #333
+  :background #ffe
+  :border 1px solid #ccc
   :padding 2px
   :margin 2px
   :height 20em
@@ -66,15 +66,13 @@ a
     :margin-top 2em
     :margin-bottom 2em
   #content
-    :width 500px
+    :width 350px
     :padding 1em
     :margin-left auto
     :margin-right auto
     :border 0.5em solid #edb
     :background #fec
     :color #111
-    input
-      :width 330px
     input.button
       :width 100%
 
@@ -101,6 +99,12 @@ a
     :display block
     :background #fec
     :border 0.5em solid #edb
+    #sub_menu
+      :display inline
+      :float right
+      :text-align right
+      a
+        :display block
     #caption
       :width 100%
       :text-align center
@@ -145,89 +149,40 @@ a
     #avatar
       :width 160px
       :float left
-
-/*
-  #menu
-    :text-align right
-    a
-      :font-size 1.2em
-      :color #fff
-      :text-decoration none
-      :margin-left 1em
-
-  #latest-side h2
-    :font-size 1em
-
-  #flashbox
-    :text-align left
-    :overflow auto
-    :height 3.1em
-    .good
-      :color #6f6
-
-  #sub_nav
-    :background #012
-    a
-      :display block
-
-  #main
-    :background #035
-    :margin-bottom 1em
-    :padding 1em
-
-  #content
-    :background #012
-    :padding 2em 1em 0.1em 2em
-
-  #footer
-    :text-align center
-    :background #035
-
-  #caption
-    :text-align center
-
-  #featured
+  .section
+    :padding-bottom 2em
     h3
+      :width 50%
       :font-size 1.2em
-      :text-align center
-    img
-      :float lefj
-      :margin-right 1em
+      :background #f60
+    .post, .comment
+      :padding-left 1em
 
-  #latest
-    :padding-top 2em
-    div
-      :text-align center
-    h3
-      :font-size 1.2em
-      :text-align center
-
-  .user-location
-    :font-size 0.7em
-    :display block
-    :text-align left
-
-  .user-name
-    :font-size 1.1em
-    :display block
-    :text-align left
-
-  #newest-pictures img
-    :border 0.5em solid #034
-    :margin 0.5em
-
-  #profile-items .key
-    :padding-right 1em
-    :font-weight bold
-
-  #min #header
-    :padding-top 2em
+#blog
+  #history
     :text-align center
+    :width 20%
+    :float left
+    h3
+      :font-size 1em
+    .item
+      :font-size 0.9em
+    .ago
+      :font-size 0.8em
+  #post
+    :width 75%
+    :float right
+    h2
+      :text-align center
 
-  #min-content
-    :padding 1em
-    :background #035
-
-  #login, #register
-    :background #111
-    :padding 2em 2em 0.1em 2em
+#blog-mod
+  form
+    :width 90%
+  label
+    :width 15%
+  input
+    :width 80%
+  input.button
+    :width auto
+  textarea
+    :width 80%

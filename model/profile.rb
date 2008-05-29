@@ -72,13 +72,24 @@ class Profile < Sequel::Model
     "/media/avatar/default_#{size}.png"
   end
 
-  def flickr_photos
-    return [] unless flickr_name
-    user = FLICKR.users(flickr_name)
-    photos = user.photos
-    photos || []
+  # sizes are
+  # Square Thumbnail Small Medium Large
+  def flickr_photos(size = 'Thumbnail')
+    if flickr_name
+      if user = FLICKR.users(flickr_name)
+        return user.photos.each{|photo|
+          yield(photo.source(size))
+        }
+      end
+    end
+
+    []
   rescue
     []
+  end
+
+  def blog_posts(n = 10)
+    Blog.filter(:profile_id => self.id).order(:created_at).limit(n)
   end
 
   # Links

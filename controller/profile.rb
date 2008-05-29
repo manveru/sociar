@@ -1,4 +1,6 @@
 class ProfileController < AppController
+  helper :form
+
   def index(nick = nil)
     if nick
       redirect Rs(:show, nick)
@@ -15,11 +17,22 @@ class ProfileController < AppController
     else
       @user = user
     end
-    redirect R(:/) unless @user.login
+    redirect R(:/) unless @user and @user.login
 
     @profile = @user.profile
     @flickr = @profile.flickr_photos
     @comments = Comment.all
+  end
+
+  # FIXME: make this more strict
+  def edit
+    redirect_referrer unless logged_in?
+    @profile = user.profile
+
+    if request.post?
+      pp request.params
+      @profile.update_values(request.params)
+    end
   end
 
   private
@@ -46,12 +59,5 @@ class ProfileController < AppController
   def messages_empty?
     return true
     @profile.sent_messages.empty?
-  end
-
-  def form_input(name, label = name.to_s.capitalize)
-    id = "edit-#{name}"
-    value = h(instance_variable_get("@#{value}"))
-    %|<label for="#{id}">#{label}</label>
-      <input type="text" name="#{name}" value="#{value}" id="#{id}" />|
   end
 end

@@ -5,19 +5,19 @@
 <div id="latest">
   <div id="comments" class="latest-column">
     <h3>Latest Comments</h3>
-    <?r @comments.each do |comment| ?>
+    <?r if @comments.each{|comment| ?>
       <div class="comment">
         <span class="time">#{comment.time}</span>
         <span class="user">#{comment.user.profile.name}</span>
       </div>
-    <?r end; if @comments.empty?  ?>
-    No Comments
+    <?r }.empty? ?>
+      No Comments
     <?r end ?>
   </div>
 
   <div id="members" class="latest-column">
     <h3>Newest Members</h3>
-    <?r @users.each do |user| ?>
+    <?r if @users.each{|user| ?>
       <div class="member clearfix">
         <div class="avatar">
           <a href="#{user.profile_url}"><img src="#{user.avatar_url(:small)}" alt="Avatar" /></a>
@@ -28,16 +28,16 @@
           <a href="#{user.location_url}" class="location">#{h user.location}</a>
         </div>
       </div>
-    <?r end; if @users.empty?  ?>
+    <?r }.empty?  ?>
       No Members
     <?r end ?>
   </div>
 
   <div id="pictures" class="latest-column">
     <h3>Newest Pictures</h3>
-    <?r @pictures.each do |picture| ?>
+    <?r if @pictures.each{|picture| ?>
       <a href="#"><img src="#{picture}" alt="Picture" /></a>
-    <?r end; if @pictures.empty?  ?>
+    <?r }.empty? ?>
       No Pictures
     <?r end ?>
   </div>

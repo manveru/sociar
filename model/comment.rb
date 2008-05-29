@@ -22,13 +22,8 @@ class Comment < Sequel::Model
   has_many :comments
   belongs_to :profile
 
-  before_save do
-    self.updated_at = Time.now
-  end
-
-  before_create do
-    self.created_at = Time.now
-  end
+  before_create{ self.created_at = Time.now }
+  before_save{ self.updated_at = Time.now }
 
   after_create do
     feed_item = FeedItem.create(:item => self)
@@ -36,5 +31,9 @@ class Comment < Sequel::Model
     p :create => :FeedItem
     # feed_item = FeedItem.create(:item => self)
     # ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
+  end
+
+  def self.latest(n = 10)
+    order(:created_at.desc).limit(n).eager(:profile)
   end
 end

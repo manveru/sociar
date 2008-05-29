@@ -9,28 +9,13 @@
         <div style="background: #f00;"> #{msg} </div>
       <?r end ?>
 
-      <label for="register-login">Name:</label>
-      <input type="text" name="login" id="register-login" value="#{@login}" />
-
-      <label for="register-email">Email:</label>
-      <input type="text" name="email" id="register-email" value="#{@email}" />
-
-      <label for="register-password">Password:</label>
-      <input type="password" name="password" id="register-password" />
-
-      <label for="register-password-confirmation">Password confirmation:</label>
-      <input type="password" name="password_confirmation" id="register-password-confirmation" />
-
-      <label for="register-captcha">What is #{simple_captcha}?</label>
-      <input type="text" name="captcha" id="register-captcha" />
-
-      <div class="clear">&nbsp;</div>
-      <label for="login-tos">Accept <a href="/tos">Terms of Service</a>:</label>
-      <input type="checkbox" name="tos" id="login-tos" />
-
-      <div class="clear">&nbsp;</div>
-      <label for="login-remember">Remember me:</label>
-      <input type="checkbox" name="remember_me" id="login-remember" checked="checked" />
+      #{ form_text 'Name', 'login', @login }
+      #{ form_text 'Email', 'email', @email }
+      #{ form_password 'Password', 'password' }
+      #{ form_password 'Password confirmation', 'password_confirmation' }
+      #{ form_text "What is #{simple_captcha}", 'captcha' }
+      #{ form_checkbox 'Accept <a href="/tos">Terms of Service</a>', 'tos' }
+      #{ form_checkbox 'Remember me', 'remember', true }
 
       <input type="submit" value="Sign up Now" class="button" />
 

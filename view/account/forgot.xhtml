@@ -5,12 +5,11 @@
 
       <p>#{ A 'Go back to login', :href => Rs(:login) }</p>
 
-      <label for="login-name">Email address:</label>
-      <input type="text" name="login" id="login-name" />
+      #{ form_text 'Email', 'email', @openid }
 
       <input type="submit" value="Send me a new password" class="button" />
 
-      <div class="form-advice grid_6 omega">
+      <div class="form-advice">
         #{ A "Haven't got an account yet?", :href => Rs(:register) }
       </div>
     </fieldset>

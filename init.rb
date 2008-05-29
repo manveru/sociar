@@ -9,68 +9,71 @@ unless defined?(DB)
   MODELS.each{|m| m.create_table }
 end
 
-require 'faker'
+if User.count == 0
+  require 'faker'
 
-20.times do
-  name = Faker::Name.name
-  login = Faker::Internet.user_name(name)
-  email = Faker::Internet.free_email(login)
-  password = "fake-#{login}"
+  5.times do
+    name = Faker::Name.name
+    login = Faker::Internet.user_name(name)
+    email = Faker::Internet.free_email(login)
+    password = "fake-#{login}"
 
-  user = User.prepare('email' => email,
-                      'password' => password,
-                      'password_confirmation' => password,
-                      'login' => login)
+    user = User.prepare('email' => email,
+                        'password' => password,
+                        'password_confirmation' => password,
+                        'login' => login)
 
-  user.save
-  user.post_create
+    user.save
+    user.post_create
 
-  pr = user.profile
+    pr = user.profile
+    pr.user = user
 
-  pr.name = name
-  pr.about_me = Faker::Company.bs
+    pr.name = name
+    pr.about_me = Faker::Company.bs
 
-  pr.blog = "http://#{Faker::Internet.domain_name}"
-  pr.website = "http://#{Faker::Internet.domain_name}"
+    pr.blog = "http://#{Faker::Internet.domain_name}"
+    pr.website = "http://#{Faker::Internet.domain_name}"
 
-  pr.location = Faker::Address.us_state
+    pr.location = Faker::Address.us_state
 
-  pr.aim_name = Faker::Internet.user_name
-  pr.flickr_name = Faker::Internet.user_name
-  pr.gtalk_name = Faker::Internet.user_name
-  pr.flickr = "http://flickr.com/photos/#{pr.flickr_name}"
-  pr.save
+    pr.aim_name = Faker::Internet.user_name
+    pr.flickr_name = Faker::Internet.user_name
+    pr.gtalk_name = Faker::Internet.user_name
+    pr.flickr = "http://flickr.com/photos/#{pr.flickr_name}"
+    pr.save
 
-  blog = Blog.new(:profile => pr)
-  blog.title = Faker::Company.bs
-  blog.body = Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
-  blog.save
-end
-
-__END__
-
-YAML.load_file('init/user.yaml').each do |y|
-  email = y.delete('email')
-  password = y.delete('password')
-  login = y.delete('login')
-  user = User.prepare('email' => email,
-                      'password' => password,
-                      'password_confirmation' => password,
-                      'login' => login)
-  user.save
-  user.post_create
-  profile = user.profile
-
-  y.each do |key, value|
-    profile.send("#{key}=", value)
+    blog = Blog.new(:profile => pr)
+    blog.title = Faker::Company.bs
+    blog.body = Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
+    blog.save
   end
 
-  profile.save
-end
+  # The time for custom profiles should be distinct so they are sorted before
+  sleep 1
 
-User.each do |user|
-  blog = Blog.new(:profile => user.profile)
-  blog.title = 'Welcome to Sociar'
-  blog.body = 'Well, here it is. Sociar is now yours!'
-  blog.save
+  YAML.load_file('init/user.yaml').each do |y|
+    email = y.delete('email')
+    password = y.delete('password')
+    login = y.delete('login')
+    user = User.prepare('email' => email,
+                        'password' => password,
+                        'password_confirmation' => password,
+                        'login' => login)
+    user.save
+    user.post_create
+    profile = user.profile
+
+    y.each do |key, value|
+      profile.send("#{key}=", value)
+    end
+
+    profile.user = user
+    profile.save
+
+    blog = Blog.new(:profile => profile)
+    blog.title = 'Welcome to Sociar'
+    blog.body = 'Well, here it is. Sociar is now yours!'
+    blog.save
+  end
 end

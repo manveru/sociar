@@ -3,40 +3,29 @@
   about_me: "This open social network is brought to you by manveru."
   aim_name: feagliir
   blog: "http://manveru.net"
-  first_name: Fellinger
+  name: "Michael Fellinger"
   flickr: "http://flickr.com/photos/manveru"
   flickr_name: m4nv3ru
   gtalk_name: m.fellinger@gmail.com
-  last_name: Michael
   location: "Tokyo, Japan"
   login: manveru
   website: "http://manveru.net"
   password: letmein
 -
   email: rikur@helloit.fi
-  first_name: Räisänen
-  last_name: Riku
+  name: "Riku Räisänen"
   location: Finland
   login: rikur
   password: password-riku
 -
   email: john@oxyliquit.de
-  first_name: Buch
-  last_name: Jonathan
+  name: "Jonathan Buch"
   location: Germany
   login: Kashia
   password: password-johnathan
 -
   email: fabian.buch@fabian-buch.de
-  first_name: Fabian
-  last_name: Buch
-  location: Germany
-  login: FabianB
-  password: password-fabian
--
-  email: fabian.buch@fabian-buch.de
-  first_name: Fabian
-  last_name: Buch
+  name: "Fabian Buch"
   location: Germany
   login: FabianB
   password: password-fabian

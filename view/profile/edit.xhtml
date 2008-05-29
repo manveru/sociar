@@ -1,77 +1,29 @@
-<div class="grid_3" id="sub_nav">
-  <a href="#">View Public Profile</a>
-  #{ A '&larr; Jump to Dashboard', :href => Rs(user.login) }
-</div>
-<div class="grid_8" id="edit-profile">
+<div id="profile-edit">
+  <div id="sub_menu">
+    #{ A '&larr; Jump to Dashboard', :href => Rs(user.login) }
+    #{ A 'View public profile', :href => Rs(:show_public, user.login) }
+  </div>
+
   <h1>Edit Profile</h1>
-  <form>
+  <form method="post" action="/profile/edit" name="profile/edit">
     <fieldset>
       <legend>General Info</legend>
 
-      #{ form_input :email }
-      #{ form_input :first_name, 'First Name' }
-      #{ form_input :last_name, 'Last Name' }
-      #{ form_input :location }
-      #{ form_input :website }
-      #{ form_input :flickr }
-      #{ form_input :youtube_username, 'YouTube Username' }
-      #{ form_input :flickr_username, 'Flickr Username' }
-      #{ form_input :blog }
-      #{ form_input :aim_name, 'AIM Name' }
-      #{ form_input :gtalk_name, 'GTalk Name' }
-      #{ form_input :ichat_name, 'iChat Name' }
+      #{ form_text 'Email', :email, @profile.email }
+      #{ form_text 'Name', :name, @profile.name }
+      #{ form_text 'Location', :location, @profile.location }
+      #{ form_text 'Website', :website, @profile.website }
+      #{ form_text 'Blog', :blog, @profile.blog }
+      #{ form_text 'Flickr page', :flickr, @profile.flickr }
+      #{ form_text 'Youtube name', :youtube_name, @profile.youtube_name }
+      #{ form_text 'Flickr username', :flickr_name, @profile.flickr_name }
+      #{ form_text 'AIM Name', :aim_name, @profile.aim_name }
+      #{ form_text 'GTalk name', :gtalk_name, @profile.gtalk_name }
+      #{ form_text 'iChat name', :ichat_name, @profile.ichat_name }
 
-      <label for="edit-about_me">About Me</label>
-      <textarea name="about_me" id="about_me">#@about_me</textarea>
+      #{ form_textarea 'About me', :about_me, @profile.about_me }
 
       <input type="submit" value="Save" class="button" />
     </fieldset>
   </form>
-
 </div>
-
-<?r if false ?>
-<!--
-<h1>Edit Profile <%= 'or '+link_to('Skip This Step', profile_path(@p)) if flash[:notice]=="Thanks for signing up!" %></h1>
-
-
-<div id="sub_nav">
-<%= link_to 'View Public Profile', profile_path(@p).add_param(:public_view=>true)%>
-<%= link_to('&larr; Jump to Dashboard', @p) if @p %>
-</div>
-
-<div class="left half">
-  <div id="general_info">
-    <% less_form_for @p, :html=>{:method=>:put, :class=>"box no_top"} do |p| %>
-      <h2><%= "General info" %></h2>
-
-      <%= p.front :email %>
-      <input type="text" name="profile[email]" id="profile_email" value="<%= params[:profile].blank? || params[:profile][:email].blank? ? @p.email : params[:profile][:email] %>">
-      <%= error_messages_on(:profile, :email) %>
-      <%= p.back %>
-
-      <%= p.text_field :first_name %>
-      <%= p.text_field :last_name %>
-      <%= p.text_field :location %>
-      <%= p.text_field :website %>
-      <%= p.text_field :flickr %>
-      <%= p.text_field :youtube_username %>
-      <%= p.text_field :flickr_username %>
-      <%= p.text_field :blog %>
-      <%= p.text_field :aim_name, :label=>'AIM Name' %>
-      <%= p.text_field :gtalk_name, :label=>'GTalk Name' %>
-      <%= p.text_field :ichat_name, :label=>'iChat Name' %>
-      <%= p.text_area :about_me %>
-
-      <div class="row button">
-      <%= p.submit 'Save', :class => 'button' %>
-      </div>
-
-      <input type="hidden" name="switch" value="name" />
-    <% end %>
-  </div>
-
-  <div class="clear"></div>
-</div>
--->
-<?r end ?>

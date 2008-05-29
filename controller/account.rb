@@ -1,5 +1,5 @@
 class AccountController < AppController
-  helper :user, :simple_captcha
+  helper :user, :simple_captcha, :form
   layout '/minimal_layout'
 
   def register

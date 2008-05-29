@@ -26,28 +26,49 @@
     </table>
   </div>
 
-  <div id="comments" class="clearfix">
-    <h3>Comments</h3>
-    <?r if logged_in? ?>
-      <a onclick="return $('#comment').toggle(500);">Leave a comment</a>
-      <div id="comment">
-        <form action="#{R CommentController, :profile, @user.id }" name="comment">
-          <textarea name="comment"></textarea>
-          <input type="submit" class="button" value="Add Comment" />
-        </form>
+  <div id="blog" class="clearfix section">
+    <h3>Most Recent Blog Posts</h3>
+
+    <?r if @profile.blog_posts.each{|post| ?>
+      <div class="post">
+        #{ A h(post.title), :href => R(BlogController, post.to_url) }
       </div>
-      <script>$('#comment').hide();</script>
-    <?r end ?>
-    <?r @comments.each do |comment| ?>
-      #{comment}
+    <?r }.empty? ?>
+      No Blog Posts
     <?r end ?>
   </div>
 
-  <div id="flickr" class="clearfix">
+  <div id="comment" class="clearfix section">
+    <h3>Comments</h3>
+    <?r if @comments.each{|comment| ?>
+      <div class="comment">
+        #{comment}
+      </div>
+    <?r }.empty? ?>
+      No Comments yet
+    <?r end ?>
+
+    <?r if logged_in? ?>
+      <div id="leave-comment">
+        <a onclick="return $('#comment-form').toggle(500);">Leave a comment</a>
+        <div id="comment-form">
+          <form action="#{R CommentController, :profile, @user.id }" name="comment">
+            <textarea name="comment"></textarea>
+            <input type="submit" class="button" value="Add Comment" />
+          </form>
+        </div>
+        <script>$('#comment-form').hide();</script>
+      </div>
+    <?r end ?>
+  </div>
+
+  <div id="flickr" class="clearfix section">
     <h3>Latest Flickr Pictures</h3>
 
-    <?r @flickr.each do |img| ?>
-      <a href="#{img.source}"><img src="#{img.source}" /></a>
+    <?r if @profile.flickr_photos{|img| ?>
+      <a href="#{img}"><img src="#{img}" /></a>
+    <?r }.empty? ?>
+      No Flickr images
     <?r end ?>
   </div>
 </div>
