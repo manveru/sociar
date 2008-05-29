@@ -66,7 +66,7 @@ a
     :margin-top 2em
     :margin-bottom 2em
   #content
-    :width 350px
+    :width 380px
     :padding 1em
     :margin-left auto
     :margin-right auto
@@ -74,7 +74,7 @@ a
     :background #fec
     :color #111
     input.button
-      :width 100%
+      :width auto
 
 #layout
   #header
@@ -100,11 +100,14 @@ a
     :background #fec
     :border 0.5em solid #edb
     #sub_menu
-      :display inline
-      :float right
-      :text-align right
+      :text-align center
+      :margin 1em
       a
-        :display block
+        :padding-left 0.2em
+        :padding-right 0.2em
+        :margin 0.3em
+        :border 1px solid #f60
+        :background #fdb
     #caption
       :width 100%
       :text-align center
@@ -152,7 +155,6 @@ a
   .section
     :padding-bottom 2em
     h3
-      :width 50%
       :font-size 1.2em
       :background #f60
     .post, .comment
