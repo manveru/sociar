@@ -29,7 +29,7 @@ module Ramaze
       end
 
       def form_build(tag_name, label, hash, &block)
-        form_id = "form-#{hash[:id]}"
+        form_id = "form-#{hash[:name]}"
 
         Ramaze::Gestalt.build{
           label(:for => form_id){ "#{label}:" }
