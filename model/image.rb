@@ -2,6 +2,9 @@ class Image < Sequel::Model
   MODELS << self
 
   PATH = "/image"
+  SIZES = {
+    :small => 50, :medium => 100, :large => 150
+  }
 
   set_schema do
     primary_key :id
@@ -17,12 +20,33 @@ class Image < Sequel::Model
 
   belongs_to :profile
 
+  # Hooks
+  hooks.clear
+
+  before_create do
+    self.created_at = Time.now
+  end
+
+  before_save do
+    generate_thumbnails(SIZES)
+    self.updated_at = Time.now
+  end
+
+
+  def file(size)
+    File.join(PATH, filename(size))
+  end
+
   def public_file(size)
-    File.join(public_path, "#{basename}_#{size}.png")
+    File.join(public_path, filename(size))
   end
 
   def public_path
     File.join(public_root, PATH)
+  end
+
+  def filename(size)
+    "#{basename}_#{size}.png"
   end
 
   def small;  public_file(:small); end
@@ -33,17 +57,62 @@ class Image < Sequel::Model
   def medium_url; file(:medium); end
   def large_url; file(:large); end
 
-  before_create do
-    self.created_at = Time.now
-  end
-
-  before_save do
-    generate_thumbnails(:small => 50, :medium => 100, :large => 150)
-    self.updated_at = Time.now
-  end
-
   def self.latest(n = 10)
     order(:created_at.desc).limit(n).eager(:profile)
+  end
+
+  def self.store(profile, request)
+    image = new(:profile => profile, :caption => request[:caption])
+
+    file = request[:image]
+
+    type     = file[:type]
+    filename = file[:filename]
+    tempfile = file[:tempfile]
+
+    ext = ext_for(type, filename)
+    target_name = image.next_name(ext)
+    target_path = File.join(Ramaze::Global.public_root, PATH, target_name)
+
+    FileUtils.mkdir_p(File.dirname(target_path))
+    FileUtils.cp(tempfile.path, target_path)
+    image.original = target_path
+    image.save
+    profile.add_image(image)
+    profile.save
+  end
+
+  def self.ext_for(mime, name)
+    case mime
+    when /png/
+      '.png'
+    when /jpg/
+      '.jpg'
+    when /gif/
+      '.gif'
+    else
+      ext = File.extname(name.to_s)
+      ext.empty? ? '.png' : ext
+    end
+  end
+
+  def next_name(ext)
+    n = self.class.filter(:profile_id => profile.id).count + 1
+    "%s_%08d%s" % [profile.user.login, n, ext]
+  end
+
+  include Ramaze::Helper::CGI
+  include Ramaze::Helper::Link
+
+  def linked(size)
+    src = send("#{size}_url")
+    href = profile.user.profile_url
+    %|<a href="#{href}"><img src="#{src}"alt="#{h caption}" /></a>|
+  end
+
+  def delete_link
+    href = R(ImageController, :delete, id)
+    %|<a href="#{href}" class="location">Delete</a>|
   end
 
   private
@@ -68,8 +137,10 @@ class Image < Sequel::Model
       puts "Generate Thumbnails for: #{original}"
 
       sizes.each do |name, size|
+        out = public_file(name)
+        next if File.file?(out)
+
         img.thumbnail(size) do |thumb|
-          out = public_file(name)
           thumb.save(out)
         end
       end

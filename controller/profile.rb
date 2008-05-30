@@ -6,6 +6,7 @@ class ProfileController < AppController
       @profile = @user.profile
       @flickr = @profile.flickr_photos
       @comments = Comment.filter(:to_id => @user.id)
+      @images = @user.images
 
       @private = is_private?
     else

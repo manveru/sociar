@@ -47,6 +47,23 @@
   <?r end ?>
 </div>
 
+<div id="image" class="clearfix section">
+  <h3>Latest Images</h3>
+
+  <div id="images">
+    <?r if @images.each{|image| ?>
+      <div class="image">
+        #{image.linked(:large)}
+        <?r if @private ?>
+          (#{image.delete_link})
+        <?r end ?>
+      </div>
+    <?r }.empty? ?>
+      No images
+    <?r end ?>
+  </div>
+</div>
+
 <div id="flickr" class="clearfix section">
   <h3>Latest Flickr Pictures</h3>
 

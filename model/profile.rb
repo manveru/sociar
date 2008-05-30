@@ -50,6 +50,9 @@ class Profile < Sequel::Model
   #          :conditions => {:is_public => true},
   #          :order => 'created_at desc'
 
+  # Hooks
+  hooks.clear
+
   before_create do
     self.created_at = Time.now
     self.updated_at = Time.now

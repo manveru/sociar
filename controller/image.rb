@@ -10,6 +10,21 @@ class ImageController < AppController
     end
   end
 
-  def manage
+  def save
+    redirect_referrer unless logged_in? and request.post?
+
+    image = Image.store(user.profile, request)
+
+    redirect_referrer
+  end
+
+  def delete(id)
+    if image = Image[id]
+      if image.profile_id == user.profile_id
+        image.delete
+      end
+    end
+
+    redirect_referrer
   end
 end

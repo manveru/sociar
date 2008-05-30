@@ -33,7 +33,7 @@
   <div id="images" class="latest-column">
     <h3>Newest Images</h3>
     <?r if @images.each{|image| ?>
-      <a href="#"><img src="#{image}" alt="image" /></a>
+      #{image.linked(:large)}
     <?r }.empty? ?>
       No Images
     <?r end ?>

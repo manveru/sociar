@@ -31,10 +31,14 @@ class User < Sequel::Model
   attr_accessor :password, :password_confirmation, :email
 
   validations.clear
+
   validates_uniqueness_of :login
   validates_confirmation_of :password
   validates_length_of :password, :within => 6..255
   validates_length_of :login, :within => 3..255
+
+  # Hooks
+  hooks.clear
 
   before_create{ self.created_at = Time.now }
   before_save{ self.updated_at = Time.now }
@@ -125,7 +129,7 @@ class User < Sequel::Model
   end
 
   def name_linked
-    %|<a href="#{profile_url}" class="name">#{h profile.name}</a>|
+    %|<a href="#{profile_url}" class="name">#{h name}</a>|
   end
 
   def location_linked
@@ -134,6 +138,10 @@ class User < Sequel::Model
 
   def location
     profile.location
+  end
+
+  def name
+    profile.name
   end
 
   private

@@ -1,6 +1,8 @@
 <div id="image">
+  <h1>#{@user.name_linked}'s Images</h1>
   <?r if @private ?>
     <div id="sub_menu">
+      #{ A 'View Public images', :href => Rs(user.login, :public => true) }
     </div>
     <div id="manage">
       <form method="POST" action="/image/save" enctype="multipart/form-data" name="image">
@@ -13,7 +15,12 @@
 
   <div id="images">
     <?r if @images.each{|image| ?>
-      #{image.large}
+      <div class="image">
+        #{image.linked(:large)}
+        <?r if @private ?>
+          (delete)
+        <?r end ?>
+      </div>
     <?r }.empty? ?>
       No images
     <?r end ?>
