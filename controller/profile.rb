@@ -11,6 +11,7 @@ class ProfileController < AppController
     end
 
     redirect R(:/) unless @user and @user.login
+    @private = !request[:public] and logged_in?
 
     @profile = @user.profile
     @flickr = @profile.flickr_photos
@@ -40,7 +41,6 @@ class ProfileController < AppController
   end
 
   def photos_empty?
-    return true
     @profile.photos.empty?
   end
 

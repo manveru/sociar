@@ -1,7 +1,7 @@
 <div id="profile">
   <div id="sub_menu" class="clearfix">
     <?r if @private ?>
-      #{ A 'View Public profile', :href => Rs(:show_public, user.login) }
+      #{ A 'View Public profile', :href => Rs(user.login, :public => true) }
       #{ A 'Message Center', :href => Rs(:/) }
       #{ A 'Manage Pictures', :href => Rs(:edit) }
       #{ A 'Your Blog', :href => R(BlogController, user.login) }
@@ -10,5 +10,7 @@
   </div>
 
   #{ render_template '_show.xhtml' }
-  #{ render_template 'getting_started.xhtml' }
+  <?r if @private ?>
+    #{ render_template 'getting_started.xhtml' }
+  <?r end ?>
 </div>
