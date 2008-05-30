@@ -1,27 +1,20 @@
 class ProfileController < AppController
   helper :form, :gravatar
 
-  def index(nick = nil)
-    if nick
-      redirect Rs(:show, nick)
-    else
-      @user = user
-      @profile = @user.profile
-    end
-  end
-
-  def show(login)
-    # flash[:good] = ['something good', 'and more goodness', 'even more here']
+  def index(login = nil)
     if login
       @user = User[:login => login]
-    else
+    elsif logged_in?
       @user = user
+    else
+      redirect R(:/)
     end
+
     redirect R(:/) unless @user and @user.login
 
     @profile = @user.profile
     @flickr = @profile.flickr_photos
-    @comments = Comment.all
+    @comments = Comment.filter(:to_id => @user.id)
   end
 
   # FIXME: make this more strict

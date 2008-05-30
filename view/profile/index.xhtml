@@ -1,19 +1,14 @@
-<div id="content" class="grid_15">
-  <div class="grid_3" id="sub_nav">
-    <a href="#">View Public Profile</a>
-    <a href="#">Messages Center</a>
-    <a href="#">Manage Photos</a>
-    <a href="#">My Network</a>
-    <a href="#">The Blog</a>
-    #{ A 'Account Settings', :href => Rs(:edit) }
+<div id="profile">
+  <div id="sub_menu" class="clearfix">
+    <?r if @private ?>
+      #{ A 'View Public profile', :href => Rs(:show_public, user.login) }
+      #{ A 'Message Center', :href => Rs(:/) }
+      #{ A 'Manage Pictures', :href => Rs(:edit) }
+      #{ A 'Your Blog', :href => R(BlogController, user.login) }
+      #{ A 'Account Settings', :href => Rs(:edit) }
+    <?r end ?>
+  </div>
 
-    <div class="avatar">
-      <img src="#{@profile.avatar}" />
-    </div>
-  </div>
-  <div class="grid_8">
-    <h1>Dashboard</h1>
-    #{ render_template 'show.xhtml' }
-    #{ render_template 'getting_started.xhtml' }
-  </div>
+  #{ render_template '_show.xhtml' }
+  #{ render_template 'getting_started.xhtml' }
 </div>

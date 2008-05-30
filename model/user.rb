@@ -95,7 +95,7 @@ class User < Sequel::Model
   include Ramaze::Helper::CGI
 
   def profile_url
-    R(ProfileController, :show, h(login))
+    R(ProfileController, h(login))
   end
   alias to_url profile_url
 

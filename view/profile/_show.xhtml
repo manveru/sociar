@@ -1,0 +1,64 @@
+<div id="summary" class="clearfix">
+  <div id="avatar">
+    <img src="#{@profile.avatar(150)}" alt="Avatar" />
+  </div>
+
+  <div id="name-location">
+    <h1>#{@profile.name}</h1>
+    <a href="#{@user.location_url}" class="location">#{h @user.location}</a>
+  </div>
+
+  <table id="info">
+    #{profile_item 'About',   @profile.about_me}
+    #{profile_item 'Website', @profile.website_link}
+    #{profile_item 'Blog',    @profile.blog_link}
+    #{profile_item 'AIM',     @profile.aim_link}
+    #{profile_item 'GTalk',   @profile.gtalk_link}
+    #{profile_item 'IChat',   @profile.ichat_link}
+    #{profile_item 'Flickr',  @profile.flickr_link}
+  </table>
+</div>
+
+<div id="blog" class="clearfix section">
+  <h3>Most Recent Blog Posts</h3>
+
+  <?r if @profile.blog_posts.each{|post| ?>
+    <div class="post">
+      #{ A h(post.title), :href => R(BlogController, post.to_url) }
+    </div>
+  <?r }.empty? ?>
+    No Blog Posts
+  <?r end ?>
+</div>
+
+<div id="comments" class="clearfix section">
+  <h3>Comments</h3>
+  <?r if @comments.each{|comment| @comment = comment; @size = nil ?>
+    #{ render_template '../comment/_show.xhtml' }
+  <?r }.empty? ?>
+    No Comments yet
+  <?r end ?>
+
+  <?r if logged_in? ?>
+    <div id="leave-comment">
+      <a onclick="return $('#comment-form').toggle(500);">Leave a comment</a>
+      <div id="comment-form">
+        <form action="#{R CommentController, :profile, @user.id }" name="comment">
+          <textarea name="comment"></textarea>
+          <input type="submit" class="button" value="Add Comment" />
+        </form>
+      </div>
+      <script>$('#comment-form').hide();</script>
+    </div>
+  <?r end ?>
+</div>
+
+<div id="flickr" class="clearfix section">
+  <h3>Latest Flickr Pictures</h3>
+
+  <?r if @profile.flickr_photos{|img| ?>
+    <a href="#{img}"><img src="#{img}" /></a>
+  <?r }.empty? ?>
+    No Flickr images
+  <?r end ?>
+</div>
