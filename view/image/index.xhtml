@@ -1,0 +1,10 @@
+<?r if logged_in? ?>
+  <div id="sub_menu">
+    #{ A 'Manage your images', :href => Rs(:manage) }
+  </div>
+<?r end ?>
+<?r if Image.each{|image| ?>
+  #{image.large}
+<?r }.empty? ?>
+  No images
+<?r end ?>
