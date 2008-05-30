@@ -1,7 +1,7 @@
-class Picture < Sequel::Model
+class Image < Sequel::Model
   MODELS << self
 
-  PATH = "/picture"
+  PATH = "/image"
 
   set_schema do
     primary_key :id

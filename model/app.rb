@@ -13,7 +13,7 @@ require 'model/feed_item'
 require 'model/friend'
 require 'model/message'
 require 'model/photo'
-require 'model/picture'
+require 'model/image'
 require 'model/profile'
 require 'model/user'
 
