@@ -41,12 +41,10 @@
     <?r end ?>
   </div>
 
-  <div id="comment" class="clearfix section">
+  <div id="comments" class="clearfix section">
     <h3>Comments</h3>
-    <?r if @comments.each{|comment| ?>
-      <div class="comment">
-        #{comment}
-      </div>
+    <?r if @comments.each{|comment| @comment = comment; @size = nil ?>
+      #{ render_template '../comment/_show.xhtml' }
     <?r }.empty? ?>
       No Comments yet
     <?r end ?>

@@ -77,3 +77,13 @@ if User.count == 0
     blog.save
   end
 end
+
+User.each do |from|
+  User.each do |to|
+    next if from.id == to.id
+    next if rand > 0.42
+
+    body = Faker::Lorem.paragraph
+    Comment.create(:body => body, :from => from, :to => to)
+  end
+end

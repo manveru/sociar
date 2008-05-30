@@ -2,11 +2,12 @@ class CommentController < AppController
   # comment on profile
   # TODO
   def profile(login)
-    if target = User[:login => login]
-      if text = request[:comment]
-        comment = Comment.new(:text => text)
-        target.profile.add_comment
-      end
+    from, to = user, User[:login => login]
+
+    if from and to and from.id != to.id
+      Comment.new(:text => request[:comment], :from=> from, :to => to)
+      p from => to
+      p request[:comment]
     end
 
     redirect_referrer

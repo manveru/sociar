@@ -107,6 +107,18 @@ class User < Sequel::Model
     profile.avatar(size)
   end
 
+  def avatar_linked_image(size = 50)
+    %|<a href="#{profile_url}"><img src="#{avatar(size)}"alt="Avatar" /></a>|
+  end
+
+  def name_linked
+    %|<a href="#{profile_url}" class="name">#{h profile.name}</a>|
+  end
+
+  def location_linked
+    %|<a href="#{location_url}" class="location">#{h profile.location}</a>|
+  end
+
   def location
     profile.location
   end

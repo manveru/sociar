@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'ramaze'
+require 'ramaze/helper/gravatar'
 
 $LOAD_PATH.unshift(__DIR__/:vendor)
 Ramaze::Helper::PATH.unshift(__DIR__)

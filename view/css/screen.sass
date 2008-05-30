@@ -59,19 +59,18 @@ a
   :text-decoration none
 
 #minimal-layout
-  #header
-    :text-align center
-    :margin-left auto
-    :margin-right auto
-    :margin-top 2em
-    :margin-bottom 2em
-  #content
+  #header, #content
     :width 380px
     :padding 1em
     :margin-left auto
     :margin-right auto
-    :border 0.5em solid #edb
     :background #fec
+    :border 0.5em solid #edb
+  #header
+    :text-align center
+    :margin-top 2em
+    :margin-bottom 2em
+  #content
     :color #111
     input.button
       :width auto
@@ -113,14 +112,14 @@ a
       :text-align center
     #latest
       .latest-column
-        :width 33.3%
+        :width 31.66%
+        :margin 0.5em
         :float left
         h3
           :text-align center
       #members
         .member
           :width 100%
-          :height 50px
           :margin-bottom 1em
           .avatar
             :width 60px
@@ -139,6 +138,18 @@ a
     a
       :margin-left 0.2em
       :margin-right 0.2em
+
+#comments
+  .comment
+    :width 100%
+    :margin-bottom 1em
+    .avatar
+      :width 60px
+      :float left
+    .message
+      .head
+        :font-size 0.8em
+      .body
 
 #profile
   #summary
@@ -159,6 +170,10 @@ a
       :background #f60
     .post, .comment
       :padding-left 1em
+    #comment-form
+      textarea
+        :width 90%
+        :height 10em
 
 #blog
   #history

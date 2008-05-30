@@ -5,11 +5,8 @@
 <div id="latest">
   <div id="comments" class="latest-column">
     <h3>Latest Comments</h3>
-    <?r if @comments.each{|comment| ?>
-      <div class="comment">
-        <span class="time">#{comment.time}</span>
-        <span class="user">#{comment.user.profile.name}</span>
-      </div>
+    <?r if @comments.each{|comment| @comment = comment; @size = 50 ?>
+      #{ render_template 'comment/_show.xhtml' }
     <?r }.empty? ?>
       No Comments
     <?r end ?>
@@ -20,12 +17,12 @@
     <?r if @users.each{|user| ?>
       <div class="member clearfix">
         <div class="avatar">
-          <a href="#{user.profile_url}"><img src="#{user.avatar(50)}" alt="Avatar" /></a>
+          #{user.avatar_linked_image(50)}
         </div>
         <div class="info">
-          <a href="#{user.profile_url}" class="name">#{h user.profile.name}</a>
+          #{user.name_linked}
           <br />
-          <a href="#{user.location_url}" class="location">#{h user.location}</a>
+          #{user.location_linked}
         </div>
       </div>
     <?r }.empty?  ?>

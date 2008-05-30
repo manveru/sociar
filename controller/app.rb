@@ -4,7 +4,7 @@ class AppController < Ramaze::Controller
 
   def self.inherited(klass)
     super
-    klass.helper :xhtml, :config, :user
+    klass.helper :xhtml, :config, :user, :formatting
     klass.layout '/page'
   end
 end
