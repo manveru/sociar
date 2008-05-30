@@ -33,20 +33,29 @@ describe 'User register' do
     @page.at(id).inner_text.should =~ check
   end
 
+  user = {
+    :login => 'specme',
+    :email => 'specme@spec.org',
+    :password => 'specme',
+  }
+
   should 'see register link' do
     click_link 'Register'
 
     form = @page.form('register')
 
-    form.login = 'manveru'
-    form.email = 'm.fellinger@gmail.com'
-    form.password = 'letmein'
-    form.password_confirmation = 'letmein'
+    form.login = user[:login]
+    form.email = user[:email]
+    form.password = user[:password]
+    form.password_confirmation = user[:password]
     # form.remember_me
+    captcha = @page.at('label[@for=form-captcha]').inner_text
+    captcha =~ /What is (\d+) ([+-]) (\d+)/
+    form.captcha = $1.to_i.send($2, $3.to_i)
 
     submit form, form.buttons.first
 
-    check '#flashbox/.good', /welcome on board manveru/
+    check '#flashbox/.good', /welcome on board #{user[:login]}/
   end
 
   should 'be logged in after registering' do
@@ -64,11 +73,11 @@ describe 'User register' do
 
     form = @page.form('login')
 
-    form.login = 'manveru'
-    form.password = 'letmein'
+    form.login = user[:login]
+    form.password = user[:password]
     # form.remember_me
 
     submit form, form.buttons.first
-    check '#flashbox/.good', /Welcome back manveru/
+    check '#flashbox/.good', /Welcome back #{user[:login]}/
   end
 end

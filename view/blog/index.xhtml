@@ -4,10 +4,13 @@
       #{ A '&larr; Jump to Dashboard', :href => user.to_url }
       #{ A 'Write a new post', :href => Rs(:new) }
     <?r else ?>
-      #{ A "&larr; To #{h @profile.name}'s Profile", :href => R(ProfileController, :show, @user.login) }
+      #{ A "&larr; To #{h @profile.name}'s Profile", :href => @user.to_url }
     <?r end ?>
   </div>
 
+  <div id="avatar">
+    <img src="#{@profile.avatar(150)}" alt="Avatar" />
+  </div>
   <h1>#{h @profile.name}'s Blog</h1>
 
   <div id="history">
