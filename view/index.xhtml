@@ -30,12 +30,12 @@
     <?r end ?>
   </div>
 
-  <div id="pictures" class="latest-column">
-    <h3>Newest Pictures</h3>
-    <?r if @pictures.each{|picture| ?>
-      <a href="#"><img src="#{picture}" alt="Picture" /></a>
+  <div id="images" class="latest-column">
+    <h3>Newest Images</h3>
+    <?r if @images.each{|image| ?>
+      <a href="#"><img src="#{image}" alt="image" /></a>
     <?r }.empty? ?>
-      No Pictures
+      No Images
     <?r end ?>
   </div>
 </div>

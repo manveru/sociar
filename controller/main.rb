@@ -4,6 +4,6 @@ class MainController < AppController
   def index
     @comments = Comment.latest
     @users = User.latest
-    @pictures = Picture.latest
+    @images = Image.latest
   end
 end
