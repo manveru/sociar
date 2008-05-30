@@ -29,7 +29,7 @@ class Blog < Sequel::Model
   end
 
   def to_url
-    "#{user.login}/#{id}-#{linkable_title}"
+    "#{profile.user.login}/#{id}-#{linkable_title}"
   end
 
   def linkable_title
