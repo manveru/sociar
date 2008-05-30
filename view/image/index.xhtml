@@ -1,10 +1,21 @@
-<?r if logged_in? ?>
-  <div id="sub_menu">
-    #{ A 'Manage your images', :href => Rs(:manage) }
+<div id="image">
+  <?r if @private ?>
+    <div id="sub_menu">
+    </div>
+    <div id="manage">
+      <form method="POST" action="/image/save" enctype="multipart/form-data" name="image">
+        Upload Image: <input type="file" name="file" /><br />
+        <input type="text" name="caption" /><br />
+        <input type="submit" name="submit" value="Upload Image" />
+      </form>
+    </div>
+  <?r end ?>
+
+  <div id="images">
+    <?r if @images.each{|image| ?>
+      #{image.large}
+    <?r }.empty? ?>
+      No images
+    <?r end ?>
   </div>
-<?r end ?>
-<?r if Image.each{|image| ?>
-  #{image.large}
-<?r }.empty? ?>
-  No images
-<?r end ?>
+</div>

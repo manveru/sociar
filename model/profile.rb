@@ -34,7 +34,7 @@ class Profile < Sequel::Model
   has_many :blogs
   has_many :comments
   has_many :feeds
-  has_many :photos
+  has_many :images
 
   # has_many :
   # has_many :feed_items,

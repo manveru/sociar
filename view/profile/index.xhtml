@@ -3,7 +3,7 @@
     <?r if @private ?>
       #{ A 'View Public profile', :href => Rs(user.login, :public => true) }
       #{ A 'Message Center', :href => Rs(:/) }
-      #{ A 'Manage Pictures', :href => Rs(:edit) }
+      #{ A 'Manage Images', :href => R(ImageController) }
       #{ A 'Your Blog', :href => R(BlogController, user.login) }
       #{ A 'Account Settings', :href => Rs(:edit) }
     <?r end ?>

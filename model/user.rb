@@ -103,6 +103,10 @@ class User < Sequel::Model
   include Ramaze::Helper::Link
   include Ramaze::Helper::CGI
 
+  def images
+    profile.images
+  end
+
   def profile_url
     R(ProfileController, h(login))
   end
