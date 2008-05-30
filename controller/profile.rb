@@ -6,16 +6,21 @@ class ProfileController < AppController
       @user = User[:login => login]
     elsif logged_in?
       @user = user
+    end
+
+    if @user and @user.login
+      @profile = @user.profile
+      @flickr = @profile.flickr_photos
+      @comments = Comment.filter(:to_id => @user.id)
+
+      if logged_in? and @user.login == user.login
+        @private = !request[:public]
+      else
+        @private = false
+      end
     else
       redirect R(:/)
     end
-
-    redirect R(:/) unless @user and @user.login
-    @private = !request[:public] and logged_in?
-
-    @profile = @user.profile
-    @flickr = @profile.flickr_photos
-    @comments = Comment.filter(:to_id => @user.id)
   end
 
   # FIXME: make this more strict
