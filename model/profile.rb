@@ -71,6 +71,7 @@ class Profile < Sequel::Model
 
   def avatar(size = 50)
     s = { 50 => 'small', 100 => 'medium', 150 => 'big' }[size]
+    # return "/media/avatar/default_#{s}.png"
     gravatar(email, size, "/media/avatar/default_#{s}.png")
   rescue => ex
     Ramaze::Log.error(ex)
