@@ -28,6 +28,10 @@ module Ramaze
         form_build(:input, label, hash)
       end
 
+      def form_file(label, name)
+        input label, :type => :file, :name => name
+      end
+
       def form_build(tag_name, label, hash, &block)
         form_id = "form-#{hash[:name]}"
 

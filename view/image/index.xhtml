@@ -4,8 +4,8 @@
     </div>
     <div id="manage">
       <form method="POST" action="/image/save" enctype="multipart/form-data" name="image">
-        Upload Image: <input type="file" name="file" /><br />
-        <input type="text" name="caption" /><br />
+        #{ form_file 'Image', :image }
+        #{ form_text 'Caption', :caption }
         <input type="submit" name="submit" value="Upload Image" />
       </form>
     </div>
