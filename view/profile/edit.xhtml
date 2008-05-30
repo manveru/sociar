@@ -1,7 +1,7 @@
 <div id="profile-edit">
   <div id="sub_menu">
     #{ A '&larr; Jump to Dashboard', :href => Rs(user.login) }
-    #{ A 'View public profile', :href => Rs(:show_public, user.login) }
+    #{ A 'View public profile', :href => Rs(user.login, :public => true) }
   </div>
 
   <h1>Edit Profile</h1>
