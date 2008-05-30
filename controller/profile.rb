@@ -34,12 +34,13 @@ class ProfileController < AppController
     end
   end
 
-  private
-
-  def profile_item(title, value)
-    return '' unless value
-    %|<tr><td class="key">#{title}:</td><td class="value">#{value}</td></tr>|
+  def search
+    @results = [Profile, User].map{|model|
+      model.search(request.params)
+    }.flatten.uniq
   end
+
+  private
 
   def profile_empty?
     @profile.no_data?

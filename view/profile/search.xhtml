@@ -1,0 +1,17 @@
+<div id="search">
+  <h1>Search Results</h1>
+  <?r if @results.each{|user| ?>
+    <div class="result clearfix">
+      <div class="avatar">
+        #{user.avatar_linked_image(100)}
+      </div>
+      <div class="info">
+        #{user.name_linked}
+        <br />
+        #{user.location_linked}
+      </div>
+    </div>
+  <?r }.empty? ?>
+    No Results
+  <?r end ?>
+</div>

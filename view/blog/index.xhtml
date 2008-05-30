@@ -8,22 +8,26 @@
     <?r end ?>
   </div>
 
-  <div id="avatar">
-    <img src="#{@profile.avatar(150)}" alt="Avatar" />
+  <div id="sidebar">
+    <div id="avatar">
+      <img src="#{@profile.avatar(150)}" alt="Avatar" />
+    </div>
+
+    <div id="history">
+      <h3>Blog Post History</h3>
+      <?r if @blogs.each{|post| ?>
+        <div class="item">
+          #{ A h(post.title), :href => R(BlogController, post.to_url) }
+          <div class="ago">Written about 1 month ago.</div>
+        </div>
+      <?r }.empty? ?>
+        #{h @profile.name} has not blogged yet
+      <?r end ?>
+    </div>
   </div>
+
   <h1>#{h @profile.name}'s Blog</h1>
 
-  <div id="history">
-    <h3>Blog Post History</h3>
-    <?r if @blogs.each{|post| ?>
-      <div class="item">
-        #{ A h(post.title), :href => R(BlogController, post.to_url) }
-        <div class="ago">Written about 1 month ago.</div>
-      </div>
-    <?r }.empty? ?>
-      #{h @profile.name} has not blogged yet
-    <?r end ?>
-  </div>
 
   <?r if @blog ?>
     #{ render_template '_post.xhtml' }

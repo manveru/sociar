@@ -48,7 +48,7 @@ class User < Sequel::Model
 
   def post_create
     self.crypted_password = encrypt(password)
-    self.profile = profile = Profile.create(:email => email)
+    self.profile = profile = Profile.create(:email => email, :user => self)
     save
   end
 
@@ -90,6 +90,15 @@ class User < Sequel::Model
     order(:created_at.desc).limit(n).eager(:profile)
   end
 
+  SEARCH = %w[login]
+
+  def self.search(query = {})
+    SEARCH.map{|key|
+      key, value = key.to_sym, query[key]
+      self.filter(key => value).all if value
+    }.flatten.compact.uniq
+  end
+
   # Quick profile access
   include Ramaze::Helper::Link
   include Ramaze::Helper::CGI
@@ -100,7 +109,7 @@ class User < Sequel::Model
   alias to_url profile_url
 
   def location_url
-    R(ProfileController, :search, h(location))
+    R(ProfileController, :search, :location => location)
   end
 
   def avatar(size)

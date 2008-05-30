@@ -59,26 +59,36 @@ class Profile < Sequel::Model
     self.updated_at = Time.now
   end
 
+  SEARCH = %w[name location blog website flickr aim_name flickr_name gtalk_name
+    ichat_name youtube_name]
+
+  def self.search(query = {})
+    SEARCH.map{|key|
+      key, value = key.to_sym, query[key]
+      self.filter(key => value).all if value
+    }.flatten.compact.uniq.map{|profile| profile.user }
+  end
+
   def no_data?
     (created_at <=> updated_at) == 0
   end
 
   # Profile out
 
-  def about_me_html
-    Maruku.new(h(about_me)).to_html
+  def name
+    self[:name] || user.login
   end
 
   def avatar(size = 50)
     s = { 50 => 'small', 100 => 'medium', 150 => 'big' }[size]
-    # return "/media/avatar/default_#{s}.png"
+    return "/media/avatar/default_#{s}.png"
     gravatar(email, size, "/media/avatar/default_#{s}.png")
   rescue => ex
     Ramaze::Log.error(ex)
     "/media/avatar/default_#{s}.png"
   end
 
-  # sizes are
+  # sizes are:
   # Square Thumbnail Small Medium Large
   def flickr_photos(size = 'Thumbnail')
     if flickr_name
@@ -100,28 +110,49 @@ class Profile < Sequel::Model
 
   # Links
 
-  def website_link
-    flink website
+  def link_for(sym)
+    value = self[sym]
+    return if value.to_s.strip.empty?
+    value = h(value)
+
+    case sym
+    when :aim_name
+      title = "AIM"
+      href = "aim:goim?screenname=#{value}"
+    when :gtalk_name
+      title ="GTalk"
+      href = "xmpp:#{value}"
+    when :ichat_name
+      title = "iChat"
+      href = "ichat:#{value}"
+    when :flickr_name
+      title = "Flickr"
+    when :youtube_name
+      title = "Youtube"
+    when :name
+      href = user.profile_url
+    end
+
+    title ||= sym.to_s.capitalize
+    href ||= value
+    [title, %|<a href="#{href}">#{value}</a>|]
   end
 
-  def blog_link
-    flink blog
+
+  PUBLIC_INFO = [
+    :name, :website, :blog, :flickr, :icon, :aim_name, :flickr_name,
+    :gtalk_name, :ichat_name, :youtube_name
+  ]
+
+  def render_info
+    PUBLIC_INFO.map{|sym| render_tr(sym) }.compact.join("\n")
   end
 
-  def flickr_link
-    flink flickr
-  end
-
-  def aim_link
-    flink aim_name, '<a href="aim:goim?screenname=%value">%value</a>'
-  end
-
-  def gtalk_link
-    flink gtalk_name, '<a href="xmpp:%value">%value</a>'
-  end
-
-  def ichat_link
-    flink ichat_name, '<a href="ichat:%value">%value</a>'
+  def render_tr(sym)
+    title, value = link_for(sym)
+    if title and value
+      %|<tr><td class="key">#{title}:</td><td class="value">#{value}</td></tr>|
+    end
   end
 
   private
