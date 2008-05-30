@@ -7,6 +7,24 @@ class AppController < Ramaze::Controller
     klass.helper :xhtml, :config, :user, :formatting
     klass.layout '/page'
   end
+
+  private
+
+  def is_private?
+    if logged_in? and @user.login == user.login
+      request[:public] ? false : true
+    end
+  end
+
+  def login_or_user(login)
+    if login
+      @user = User[:login => login]
+    elsif logged_in?
+      @user = user
+    else
+      nil
+    end
+  end
 end
 
 require 'controller/account'

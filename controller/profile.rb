@@ -2,22 +2,12 @@ class ProfileController < AppController
   helper :form, :gravatar
 
   def index(login = nil)
-    if login
-      @user = User[:login => login]
-    elsif logged_in?
-      @user = user
-    end
-
-    if @user and @user.login
+    if @user = login_or_user(login)
       @profile = @user.profile
       @flickr = @profile.flickr_photos
       @comments = Comment.filter(:to_id => @user.id)
 
-      if logged_in? and @user.login == user.login
-        @private = !request[:public]
-      else
-        @private = false
-      end
+      @private = is_private?
     else
       redirect R(:/)
     end
