@@ -104,10 +104,10 @@ class Image < Sequel::Model
   include Ramaze::Helper::CGI
   include Ramaze::Helper::Link
 
+  # TODO: lightbox
   def linked(size)
     src = send("#{size}_url")
-    href = profile.user.profile_url
-    %|<a href="#{href}"><img src="#{src}"alt="#{h caption}" /></a>|
+    %|<a href="#{src}"><img src="#{src}"alt="#{h caption}" /></a>|
   end
 
   def delete_link
