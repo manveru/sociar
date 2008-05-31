@@ -33,7 +33,7 @@ class Image < Sequel::Model
   end
 
 
-  def file(size)
+  def file(size = nil)
     File.join(PATH, filename(size))
   end
 
