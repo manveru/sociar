@@ -37,8 +37,8 @@ class ProfileController < AppController
     @profile.no_data?
   end
 
-  def photos_empty?
-    @profile.photos.empty?
+  def images_empty?
+    @profile.images.empty?
   end
 
   def friends_empty?
