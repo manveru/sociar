@@ -46,7 +46,11 @@ class Image < Sequel::Model
   end
 
   def filename(size)
-    "#{basename}_#{size}.png"
+    if size
+      "#{basename}_#{size}.png"
+    else
+      "#{basename}.png"
+    end
   end
 
   def small;  public_file(:small); end
@@ -107,7 +111,7 @@ class Image < Sequel::Model
   # TODO: lightbox
   def linked(size)
     src = send("#{size}_url")
-    %|<a href="#{src}"><img src="#{src}"alt="#{h caption}" /></a>|
+    %|<a href="#{file}"><img src="#{src}"alt="#{h caption}" /></a>|
   end
 
   def delete_link
