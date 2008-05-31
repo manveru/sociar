@@ -16,7 +16,7 @@ require 'controller/app'
 CONFIGURATION = Struct.new(:site_name).new('Sociar')
 
 if $0 == __FILE__
-  require 'init'
+  require 'db/init'
 end
 
 Ramaze.start :adapter => :thin

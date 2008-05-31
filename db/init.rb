@@ -52,7 +52,7 @@ if User.count == 0
   # The time for custom profiles should be distinct so they are sorted before
   sleep 1
 
-  YAML.load_file('init/user.yaml').each do |y|
+  YAML.load_file('db/init/user.yaml').each do |y|
     email = y.delete('email')
     password = y.delete('password')
     login = y.delete('login')
