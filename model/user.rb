@@ -36,6 +36,7 @@ class User < Sequel::Model
   validates_confirmation_of :password
   validates_length_of :password, :within => 6..255
   validates_length_of :login, :within => 3..255
+  validates_format_of :login, :with => /\a\w+\z/
 
   # Hooks
   hooks.clear
