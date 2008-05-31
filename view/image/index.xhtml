@@ -13,16 +13,5 @@
     </div>
   <?r end ?>
 
-  <div id="images">
-    <?r if @images.each{|image| ?>
-      <div class="image">
-        #{image.linked(:large)}
-        <?r if @private ?>
-          (delete)
-        <?r end ?>
-      </div>
-    <?r }.empty? ?>
-      No images
-    <?r end ?>
-  </div>
+  #{ render_template '../image/_list.xhtml' }
 </div>

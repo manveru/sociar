@@ -50,18 +50,7 @@
 <div id="image" class="clearfix section">
   <h3>Latest Images</h3>
 
-  <div id="images">
-    <?r if @images.each{|image| ?>
-      <div class="image">
-        #{image.linked(:large)}
-        <?r if @private ?>
-          (#{image.delete_link})
-        <?r end ?>
-      </div>
-    <?r }.empty? ?>
-      No images
-    <?r end ?>
-  </div>
+  #{ render_template '../image/_list.xhtml' }
 </div>
 
 <div id="flickr" class="clearfix section">
