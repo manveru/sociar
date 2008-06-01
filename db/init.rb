@@ -24,7 +24,6 @@ if User.count == 0
                         'login' => login)
 
     user.save
-    user.post_create
 
     pr = user.profile
     pr.user = user
@@ -61,7 +60,6 @@ if User.count == 0
                         'password_confirmation' => password,
                         'login' => login)
     user.save
-    user.post_create
     profile = user.profile
 
     y.each do |key, value|
@@ -75,6 +73,21 @@ if User.count == 0
     blog.title = 'Welcome to Sociar'
     blog.body = 'Well, here it is. Sociar is now yours!'
     blog.save
+  end
+end
+
+manveru = User[:login => 'manveru']
+
+Dir['public/image/*.{png,jpg,gif}'].each do |img|
+  if img =~ /([\w.]+)_(\d+)\.(.+)$/
+    user = User[:login => $1] || manveru
+    profile = user.profile
+    caption = Faker::Lorem.sentence
+
+    image = Image.new(:profile => profile, :caption => caption, :original => img)
+
+    profile.add_image(image)
+    profile.save
   end
 end
 
