@@ -42,18 +42,17 @@ class User < Sequel::Model
   hooks.clear
 
   before_create{ self.created_at = Time.now }
+  after_create{
+    self.crypted_password = encrypt(password)
+    self.profile = profile = Profile.create(:email => email, :user => self)
+    save
+  }
   before_save{ self.updated_at = Time.now }
 
   # Remember until next year
   def remember_me
     self.remember_token_expires_at = Time.now.utc + (1 * 365 * 24 * 60 * 60)
     self.remember_token ||= "#{uuid}-#{uuid}"
-    save
-  end
-
-  def post_create
-    self.crypted_password = encrypt(password)
-    self.profile = profile = Profile.create(:email => email, :user => self)
     save
   end
 

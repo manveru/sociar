@@ -11,7 +11,6 @@ class AccountController < AppController
     if request.post?
       redirect_referrer unless check_captcha(request[:captcha])
       if @user.save
-        @user.post_create
         flash[:good] = "You signed up, welcome on board #{@user.login}!"
         user_login('login' => @user.login)
         redirect R(ProfileController, @user.login)

@@ -25,6 +25,39 @@ class ProfileController < AppController
     end
   end
 
+  def password
+    redirect_referrer unless logged_in?
+
+    current, new, confirm = form = request[:current, :new, :confirm]
+
+    if form.all?
+      if form.each{|str| str.strip! }.any?{|str| str.empty? }
+        flash[:bad] = "Please fill out all fields"
+        redirect_referrer
+      end
+
+      if user.authenticated?(current)
+        if new == confirm
+          user.password = new
+          user.password_confirmation = confirm
+          if user.valid?
+            user.crypted_password = user.encrypt(new)
+            user.save
+            flash[:good] = "Password changed successfully"
+          end
+        else
+          flash[:bad] = "New password doesn't match confirmation"
+        end
+      else
+        flash[:bad] = "Current password wrong"
+      end
+    end
+
+    redirect_referrer
+    p request.params
+    {"new"=>"letmein", "confirm"=>"letmein", "current"=>"letmein"}
+  end
+
   def search
     @results = [Profile, User].map{|model|
       model.search(request.params)
