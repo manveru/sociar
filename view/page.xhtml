@@ -19,7 +19,7 @@
 
         <div id="menu">
           <?r if logged_in? ?>
-            #{ A 'Newest Stuff', :href => '#' }
+            #{ A 'Newest Stuff', :href => R(MainController) }
             #{ A 'Dashboard', :href => R(ProfileController) }
             #{ A 'Admin', :href => R(AdminController) }
             #{ A 'Logout', :href => R(AccountController, :logout) }
