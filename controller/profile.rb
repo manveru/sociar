@@ -50,4 +50,8 @@ class ProfileController < AppController
     return true
     @profile.sent_messages.empty?
   end
+
+  def blogs_empty?
+    @profile.blogs.empty?
+  end
 end

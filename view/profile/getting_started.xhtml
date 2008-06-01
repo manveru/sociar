@@ -46,12 +46,14 @@
     </div>
   <?r end ?>
 
-  <div class="blurp grid_10">
-    <b class="grid_3 alpha">Start blogging<br />
-    <img src="/media/blurp_comment.png" title="Profile icon" alt="Profile icon" />
-    </b>
-    <p class="grid_7 omega">
-      Share your thoughts with the world, no matter if you want to write whole essays or just a little something about how you feel. Just head over to <a href="/blog">your blog</a> and check it out.
-    </p>
-  </div>
+  <?r if blogs_empty? ?>
+    <div class="blurp grid_10">
+      <b class="grid_3 alpha">Start blogging<br />
+      <img src="/media/blurp_comment.png" title="Profile icon" alt="Profile icon" />
+      </b>
+      <p class="grid_7 omega">
+        Share your thoughts with the world, no matter if you want to write whole essays or just a little something about how you feel. Just head over to <a href="/blog">your blog</a> and check it out.
+      </p>
+    </div>
+  <?r end ?>
 </div>
