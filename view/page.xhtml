@@ -7,8 +7,8 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <title>#{ @title ||= config.site_name }</title>
-    #{%w[reset text clearfix screen].map{|c| css(c) }.join("\n")}
-    #{js('jquery')}
+    #{css_for %w[ reset text clearfix screen ] }
+    #{js 'jquery' }
   </head>
   <body>
     <div id="layout">
