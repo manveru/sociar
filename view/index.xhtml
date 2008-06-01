@@ -33,7 +33,9 @@
   <div id="images" class="latest-column">
     <h3>Newest Images</h3>
     <?r if @images.each{|image| ?>
-      #{image.linked(:large)}
+      <div class="image">
+        #{image.linked(:medium)}
+      </div>
     <?r }.empty? ?>
       No Images
     <?r end ?>
