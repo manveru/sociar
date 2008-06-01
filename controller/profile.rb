@@ -59,8 +59,14 @@ class ProfileController < AppController
   end
 
   def search
+    if q = request[:q]
+      terms = {'login' => q}
+    else
+      terms = request.params
+    end
+
     @results = [Profile, User].map{|model|
-      model.search(request.params)
+      model.search(terms)
     }.flatten.uniq
   end
 

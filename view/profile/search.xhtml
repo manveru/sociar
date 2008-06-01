@@ -1,17 +1,26 @@
 <div id="search">
-  <h1>Search Results</h1>
-  <?r if @results.each{|user| ?>
-    <div class="result clearfix">
-      <div class="avatar">
-        #{user.avatar_linked_image(100)}
+  <h1>Search</h1>
+  <form method="post">
+    <fieldset>
+      <label for="q">Search for users:</label>
+    <input type="text" name="q" id="q" />
+    </fieldset>
+  </form>
+
+  <?r unless @results.empty? ?>
+    <h2>Results</h2>
+
+    <?r @results.each do |user| ?>
+      <div class="result clearfix">
+        <div class="avatar">
+          #{user.avatar_linked_image(100)}
+        </div>
+        <div class="info">
+          #{user.name_linked}
+          <br />
+          #{user.location_linked}
+        </div>
       </div>
-      <div class="info">
-        #{user.name_linked}
-        <br />
-        #{user.location_linked}
-      </div>
-    </div>
-  <?r }.empty? ?>
-    No Results
+    <?r end ?>
   <?r end ?>
 </div>
