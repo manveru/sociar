@@ -1,11 +1,7 @@
 <div id="search">
   <h1>Search</h1>
-  <form method="post">
-    <fieldset>
-      <label for="q">Search for users:</label>
-    <input type="text" name="q" id="q" />
-    </fieldset>
-  </form>
+
+  #{ render_template '_search.xhtml' }
 
   <?r unless @results.empty? ?>
     <h2>Results</h2>

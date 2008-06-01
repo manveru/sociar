@@ -18,15 +18,23 @@
         </div>
 
         <div id="menu">
-          <?r if logged_in? ?>
-            #{ A 'Newest Stuff', :href => R(MainController) }
-            #{ A 'Dashboard', :href => R(ProfileController) }
-            #{ A 'Admin', :href => R(AdminController) }
-            #{ A 'Logout', :href => R(AccountController, :logout) }
-          <?r else ?>
-            #{ A 'Login', :href => R(AccountController, :login) }
-            #{ A 'Register', :href => R(AccountController, :register) }
-          <?r end ?>
+          <div class="top">
+            <?r if logged_in? ?>
+              #{ A 'Newest Stuff', :href => R(MainController) }
+              #{ A 'Dashboard', :href => R(ProfileController) }
+              #{ A 'Admin', :href => R(AdminController) }
+              #{ A 'Logout', :href => R(AccountController, :logout) }
+            <?r else ?>
+              #{ A 'Login', :href => R(AccountController, :login) }
+              #{ A 'Register', :href => R(AccountController, :register) }
+            <?r end ?>
+
+            #{ A 'Search', :href => R(ProfileController, :search) }
+          </div>
+
+          <form method="post" action="/profile/search" id="search-box" name="search">
+            <input type="text" name="q" id="q" value="Search..." />
+          </form>
         </div>
 
         <div id="flashbox">
@@ -38,9 +46,10 @@
         #@content
       </div>
 
-      <div id="footer" class="clearfix">
-        Sociar is a Free Open Source Social Network Platform.
-        &copy; 2008 by Michael 'manveru' Fellinger<br />
+      <div id="footer">
+        Sociar is a Open Source Social Network Platform by
+        <a href="/profile/manveru">manveru</a>.<br />
+
         <a href="http://github.com/manveru/sociar">Download Free</a>
         <a href="#">Demo</a>
         <a href="#">Contact Us</a>
