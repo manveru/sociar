@@ -8,6 +8,7 @@ $LOAD_PATH.unshift(__DIR__)
 
 require 'env'
 require 'vendor/flickr'
+require 'vendor/image_science_cropped_resize'
 acquire 'model/*.rb'
 require 'controller/app'
 

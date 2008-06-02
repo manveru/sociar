@@ -154,7 +154,7 @@ class Image < Sequel::Model
         out = public_file(name)
         next if File.file?(out)
 
-        img.thumbnail(size) do |thumb|
+        img.cropped_resize(size, size) do |thumb|
           thumb.save(out)
         end
       end
