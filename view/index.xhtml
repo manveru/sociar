@@ -1,4 +1,4 @@
-<div id="caption">
+<div id="banner">
   <img src="/media/sociar_caption.png" alt="Sociar - Society reactor" />
 </div>
 
@@ -34,7 +34,7 @@
     <h3>Newest Images</h3>
     <?r if @images.each{|image| ?>
       <div class="image">
-        #{image.linked(:medium)}
+        #{image.lightbox(:medium)}
       </div>
     <?r }.empty? ?>
       No Images
