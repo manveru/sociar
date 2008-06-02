@@ -17,7 +17,7 @@ class User < Sequel::Model
 
     boolean :active,            :default => true
     boolean :is_admin,          :default => false
-    boolean :can_send_messages, :default => false
+    boolean :can_send_messages, :default => true
 
     varchar :email_verification, :size => 255
     boolean :email_verified
