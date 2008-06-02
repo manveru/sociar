@@ -9,8 +9,8 @@
  **/
 
 var Lightbox = {
-	fileLoadingImage : "/media/loading.gif",
-	fileBottomNavCloseImage : '/media/closelabel.gif',
+	fileLoadingImage : "/media/lightbox/loading.gif",
+	fileBottomNavCloseImage : '/media/lightbox/closelabel.gif',
 	overlayOpacity : 0.8,
 	borderSize : 10,
 	imageArray : new Array,
