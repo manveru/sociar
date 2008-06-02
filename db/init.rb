@@ -15,7 +15,6 @@ if User.count == 0
     user.save
 
     pr = user.profile
-    pr.user = user
 
     pr.name = name
     pr.about_me = Faker::Company.bs
@@ -30,11 +29,6 @@ if User.count == 0
     pr.gtalk_name = Faker::Internet.user_name
     pr.flickr = "http://flickr.com/photos/#{pr.flickr_name}"
     pr.save
-
-    blog = Blog.new(:profile => pr)
-    blog.title = Faker::Company.bs
-    blog.body = Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
-    blog.save
   end
 
   # The time for custom profiles should be distinct so they are sorted before
@@ -57,35 +51,40 @@ if User.count == 0
 
     profile.user = user
     profile.save
+  end
 
-    blog = Blog.new(:profile => profile)
-    blog.title = 'Welcome to Sociar'
-    blog.body = 'Well, here it is. Sociar is now yours!'
+  Profile.each do |from|
+    Profile.each do |to|
+      next if from.id == to.id
+      next if rand > 0.42
+
+      body = Faker::Lorem.paragraph
+      Comment.create(:body => body, :from => from, :to => to)
+    end
+
+    blog = Blog.new(:profile => from)
+    blog.title = Faker::Company.bs
+    blog.body = Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
     blog.save
   end
-end
 
-manveru = User[:login => 'manveru']
+  admin = User[:login => SOCIAR.site.admin]
+  admin.is_admin = true
+  blog = Blog.new(:profile => admin.profile)
+  blog.title = 'Welcome to Sociar'
+  blog.body = 'Well, here it is. Sociar is now yours!'
+  blog.save
 
-Dir['public/image/*.{png,jpg,gif}'].each do |img|
-  if img =~ /([\w.]+)_(\d+)\.(.+)$/
-    user = User[:login => $1] || manveru
-    profile = user.profile
-    caption = Faker::Lorem.sentence
+  Dir['public/image/*.{png,jpg,gif}'].each do |img|
+    if img =~ /([\w.]+)_(\d+)\.(.+)$/
+      user = User[:login => $1] || admin
+      profile = user.profile
+      caption = Faker::Lorem.sentence
 
-    image = Image.new(:profile => profile, :caption => caption, :original => img)
+      image = Image.new(:profile => profile, :caption => caption, :original => img)
 
-    profile.add_image(image)
-    profile.save
-  end
-end
-
-Profile.each do |from|
-  Profile.each do |to|
-    next if from.id == to.id
-    next if rand > 0.42
-
-    body = Faker::Lorem.paragraph
-    Comment.create(:body => body, :from => from, :to => to)
+      profile.add_image(image)
+      profile.save
+    end
   end
 end

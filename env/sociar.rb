@@ -1,17 +1,18 @@
-Configuration.for 'sociar' do
+SOCIAR = Configuration.for('sociar'){
   mode 'dev'
 
   site do
     title "Sociar"
     description "Sociar is an Open Source Social Network Platform"
     domain "sociar.com"
-    author "manveru"
     keywords ['Open Source', 'Social Network', 'Ramaze']
+
+    admin "manveru"
   end
 
   flickr do
-    key File.read(File.expand_path('~/.flickr_api_key')).strip
-    secret '643cbb44766793f1'
+    key 'f25defdbdb783cad6cabb25c3c8e1592'
+    secret 'f34b7ef13f387da3'
     cache '.flickr_cache'
   end
 
@@ -31,4 +32,4 @@ Configuration.for 'sociar' do
     from "The Sociar Team <info@sociar.com>"
     registration_bcc = []
   end
-end
+}

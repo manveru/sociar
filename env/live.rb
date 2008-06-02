@@ -5,6 +5,6 @@ Configuration.for 'sociar' do
   end
 
   sequel do
-    db 'sqlite:///blog.db'
+    db 'sqlite:///sociar.db'
   end
 end
