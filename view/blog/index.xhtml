@@ -1,10 +1,10 @@
 <div id="blog">
   <div id="sub_menu">
     <?r if @user == user ?>
-      #{ A '&larr; Jump to Dashboard', :href => user.to_url }
+      #{ A '&larr; Jump to Dashboard', :href => @profile.to_url }
       #{ A 'Write a new post', :href => Rs(:new) }
     <?r else ?>
-      #{ A "&larr; To #{h @profile.name}'s Profile", :href => @user.to_url }
+      #{ A "&larr; To #{h @profile.name}'s Profile", :href => @profile.to_url }
     <?r end ?>
   </div>
 
