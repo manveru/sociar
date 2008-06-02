@@ -1,16 +1,19 @@
 require 'ramaze/helper/gravatar'
 
 class Profile < Sequel::Model
+  include Ramaze::Helper::Link
   include Ramaze::Helper::CGI
   include Ramaze::Helper::Gravatar
 
   SEARCH = %w[
-  name location blog website flickr aim_name flickr_name
-  gtalk_name ichat_name youtube_name
+    login name location blog website flickr aim_name
+    flickr_name gtalk_name ichat_name youtube_name
   ]
 
   set_schema do
     primary_key :id
+
+    varchar :login # boost performance
 
     text :about_me
 
@@ -73,7 +76,11 @@ class Profile < Sequel::Model
     SEARCH.map{|key|
       key, value = key.to_sym, query[key]
       self.filter(key => value).all if value
-    }.flatten.compact.uniq.map{|profile| profile.user }
+    }.flatten.compact.uniq
+  end
+
+  def self.latest(n = 10)
+    order(:created_at.desc).limit(n)
   end
 
   def no_data?
@@ -83,7 +90,7 @@ class Profile < Sequel::Model
   # Profile out
 
   def name
-    self[:name] || user.login
+    self[:name] || login
   end
 
   def avatar(size = 50)
@@ -119,6 +126,28 @@ class Profile < Sequel::Model
     Blog.filter(:profile_id => self.id).order(:created_at).limit(n)
   end
 
+  # Quick profile access
+
+  def to_url
+    R(ProfileController, h(login))
+  end
+
+  def location_url
+    R(ProfileController, :search, :location => location)
+  end
+
+  def avatar_linked_image(size = 50)
+    %|<a href="#{to_url}"><img src="#{avatar(size)}"alt="Avatar" /></a>|
+  end
+
+  def name_linked
+    %|<a href="#{to_url}" class="name">#{h name}</a>|
+  end
+
+  def location_linked
+    %|<a href="#{location_url}" class="location">#{h location}</a>|
+  end
+
   # Links
 
   def link_for(sym)
@@ -141,7 +170,7 @@ class Profile < Sequel::Model
     when :youtube_name
       title = "Youtube"
     when :name
-      href = user.profile_url
+      href = to_url
     end
 
     title ||= sym.to_s.capitalize

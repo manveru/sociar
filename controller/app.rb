@@ -19,6 +19,8 @@ class AppController < Ramaze::Controller
   end
 
   def login_or_user(login)
+    @user = nil
+
     if login
       @user = User[:login => login]
     elsif logged_in?
@@ -26,6 +28,8 @@ class AppController < Ramaze::Controller
     else
       nil
     end
+  ensure
+    @profile = @user.profile if @user
   end
 end
 

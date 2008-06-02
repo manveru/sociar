@@ -2,8 +2,8 @@ class IndexController < AppController
   map '/'
 
   def index
+    @profiles = Profile.latest
     @comments = Comment.latest
-    @users = User.latest
     @images = Image.latest
   end
 end

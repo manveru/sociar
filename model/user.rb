@@ -1,9 +1,4 @@
 class User < Sequel::Model
-  include Ramaze::Helper::Link
-  include Ramaze::Helper::CGI
-
-  SEARCH = %w[login]
-
   set_schema do
     primary_key :id
 
@@ -53,7 +48,7 @@ class User < Sequel::Model
 
   after_create do
     self.crypted_password = encrypt(password)
-    self.profile = Profile.create(:email => email, :user => self)
+    self.profile = Profile.create(:email => email, :user => self, :login => login)
     save
   end
 
@@ -96,56 +91,6 @@ class User < Sequel::Model
       return user unless pass # we don't store the password in the session...
       user if user.authenticated?(pass)
     end
-  end
-
-  def self.latest(n = 10)
-    order(:created_at.desc).limit(n).eager(:profile)
-  end
-
-  def self.search(query = {})
-    SEARCH.map{|key|
-      key, value = key.to_sym, query[key]
-      self.filter(key => value).all if value
-    }.flatten.compact.uniq
-  end
-
-  # Quick profile access
-
-  def images
-    profile.images
-  end
-
-  def profile_url
-    R(ProfileController, h(login))
-  end
-  alias to_url profile_url
-
-  def location_url
-    R(ProfileController, :search, :location => location)
-  end
-
-  def avatar(size)
-    profile.avatar(size)
-  end
-
-  def avatar_linked_image(size = 50)
-    %|<a href="#{profile_url}"><img src="#{avatar(size)}"alt="Avatar" /></a>|
-  end
-
-  def name_linked
-    %|<a href="#{profile_url}" class="name">#{h name}</a>|
-  end
-
-  def location_linked
-    %|<a href="#{location_url}" class="location">#{h profile.location}</a>|
-  end
-
-  def location
-    profile.location
-  end
-
-  def name
-    profile.name
   end
 
   private

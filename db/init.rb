@@ -91,8 +91,8 @@ Dir['public/image/*.{png,jpg,gif}'].each do |img|
   end
 end
 
-User.each do |from|
-  User.each do |to|
+Profile.each do |from|
+  Profile.each do |to|
     next if from.id == to.id
     next if rand > 0.42
 

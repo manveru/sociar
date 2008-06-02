@@ -3,7 +3,6 @@ class BlogController < AppController
 
   def index(login = nil, title = nil)
     @user = login_or_user(login)
-    @profile = @user.profile
     @blogs = @profile.blogs
 
     if title
@@ -24,8 +23,7 @@ class BlogController < AppController
 
   def new
     redirect_referrer unless logged_in?
-    @user = user
-    @profile = user.profile
+    @user, @profile = user, user.profile
     @post = Blog.new(:profile => @profile)
     @legend = "New Post"
     @submit = "Create Post"

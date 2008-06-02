@@ -1,5 +1,5 @@
 <div id="image">
-  <h1>#{@user.name_linked}'s Images</h1>
+  <h1>#{@profile.name_linked}'s Images</h1>
   <?r if @private ?>
     <div id="sub_menu">
       #{ A 'View Public images', :href => Rs(user.login, :public => true) }

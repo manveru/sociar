@@ -5,7 +5,7 @@
 
   <div id="name-location">
     <h1>#{@profile.name}</h1>
-    <a href="#{@user.location_url}" class="location">#{h @user.location}</a>
+    #{@profile.location_linked}
   </div>
 
   <table id="info">

@@ -3,10 +3,9 @@ class ProfileController < AppController
 
   def index(login = nil)
     if @user = login_or_user(login)
-      @profile = @user.profile
       @flickr = @profile.flickr_photos
-      @comments = Comment.filter(:to_id => @user.id)
-      @images = @user.images
+      @comments = Comment.filter(:to_id => @profile.id)
+      @images = @profile.images
 
       @private = is_private?
     else
@@ -65,9 +64,7 @@ class ProfileController < AppController
       terms = request.params
     end
 
-    @results = [Profile, User].map{|model|
-      model.search(terms)
-    }.flatten.uniq
+    @results = Profile.search(terms)
   end
 
   private
