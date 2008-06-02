@@ -5,4 +5,5 @@ require 'env/dev'
 
 SOCIAR = Configuration.for('sociar')
 
-DB = Sequel.connect SOCIAR.sequel.db
+s = SOCIAR.sequel
+DB = Sequel.connect s.db, :logger => s.logger

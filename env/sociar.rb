@@ -22,6 +22,7 @@ Configuration.for 'sociar' do
   end
 
   sequel do
+    logger nil
     # logger Logger.new($stdout)
   end
 
