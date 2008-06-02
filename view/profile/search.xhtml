@@ -6,15 +6,15 @@
   <?r unless @results.empty? ?>
     <h2>Results</h2>
 
-    <?r @results.each do |user| ?>
+    <?r @results.each do |profile| ?>
       <div class="result clearfix">
         <div class="avatar">
-          #{user.avatar_linked_image(100)}
+          #{profile.avatar_linked_image(100)}
         </div>
         <div class="info">
-          #{user.name_linked}
+          #{profile.name_linked}
           <br />
-          #{user.location_linked}
+          #{profile.location_linked}
         </div>
       </div>
     <?r end ?>
