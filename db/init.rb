@@ -1,14 +1,3 @@
-unless defined?(DB)
-  require 'sequel'
-  require 'ramaze'
-  DB = Sequel.sqlite
-  MODELS = []
-  require 'model/user'
-  require 'model/profile'
-  require 'model/blog'
-  MODELS.each{|m| m.create_table }
-end
-
 if User.count == 0
   require 'faker'
 
