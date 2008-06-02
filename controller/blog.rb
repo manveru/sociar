@@ -2,7 +2,7 @@ class BlogController < AppController
   helper :form
 
   def index(login = nil, title = nil)
-    @user = User[:login => login]
+    @user = login_or_user(login)
     @profile = @user.profile
     @blogs = @profile.blogs
 

@@ -1,4 +1,9 @@
 class User < Sequel::Model
+  include Ramaze::Helper::Link
+  include Ramaze::Helper::CGI
+
+  SEARCH = %w[login]
+
   set_schema do
     primary_key :id
 
@@ -27,6 +32,8 @@ class User < Sequel::Model
 
   belongs_to :profile
 
+  create_table unless table_exists?
+
   # Validation
   attr_accessor :password, :password_confirmation, :email
 
@@ -42,12 +49,13 @@ class User < Sequel::Model
   hooks.clear
 
   before_create{ self.created_at = Time.now }
-  after_create{
-    self.crypted_password = encrypt(password)
-    self.profile = profile = Profile.create(:email => email, :user => self)
-    save
-  }
   before_save{ self.updated_at = Time.now }
+
+  after_create do
+    self.crypted_password = encrypt(password)
+    self.profile = Profile.create(:email => email, :user => self)
+    save
+  end
 
   # Remember until next year
   def remember_me
@@ -94,8 +102,6 @@ class User < Sequel::Model
     order(:created_at.desc).limit(n).eager(:profile)
   end
 
-  SEARCH = %w[login]
-
   def self.search(query = {})
     SEARCH.map{|key|
       key, value = key.to_sym, query[key]
@@ -104,8 +110,6 @@ class User < Sequel::Model
   end
 
   # Quick profile access
-  include Ramaze::Helper::Link
-  include Ramaze::Helper::CGI
 
   def images
     profile.images
@@ -151,6 +155,4 @@ class User < Sequel::Model
     return rand(1e128)
     UUID.random_create
   end
-
-  MODELS << self
 end

@@ -11,6 +11,8 @@ class Blog < Sequel::Model
     foreign_key :profile_id
   end
 
+  create_table unless table_exists?
+
   validations.clear
   validates_presence_of :title, :body, :profile_id
 
@@ -39,7 +41,4 @@ class Blog < Sequel::Model
   def affected_profiles
     [profile] + profile.friends + profile.followers
   end
-
-
-  MODELS << self
 end

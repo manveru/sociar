@@ -2,7 +2,7 @@ module Ramaze
   module Helper
     module Config
       def config
-        SOCIAR
+        SOCIAR.site
       end
     end
   end

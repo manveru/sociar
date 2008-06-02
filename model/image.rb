@@ -1,5 +1,6 @@
 class Image < Sequel::Model
-  MODELS << self
+  include Ramaze::Helper::CGI
+  include Ramaze::Helper::Link
 
   PATH = "/image"
   SIZES = {
@@ -19,6 +20,8 @@ class Image < Sequel::Model
   end
 
   belongs_to :profile
+
+  create_table unless table_exists?
 
   # Hooks
   hooks.clear
@@ -104,9 +107,6 @@ class Image < Sequel::Model
     n = self.class.filter(:profile_id => profile.id).count + 1
     "%s_%08d%s" % [profile.user.login, n, ext]
   end
-
-  include Ramaze::Helper::CGI
-  include Ramaze::Helper::Link
 
   # TODO: lightbox
   def linked(size)

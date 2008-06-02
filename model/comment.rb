@@ -1,6 +1,4 @@
 class Comment < Sequel::Model
-  MODELS << self
-
   set_schema do
     primary_key :id
 
@@ -15,6 +13,8 @@ class Comment < Sequel::Model
     foreign_key :from_id
     foreign_key :to_id
   end
+
+  create_table unless table_exists?
 
   many_to_one :from, :key => :from_id, :class => :User
   many_to_one :to, :key => :to_id, :class => :User

@@ -4,14 +4,16 @@ require 'maruku'
 require 'sequel'
 require 'scaffolding_extensions'
 
-require __DIR__/'vendor/flickr'
-require __DIR__/'settings'
+$LOAD_PATH.unshift(__DIR__)
 
-require __DIR__/'model/app'
-require __DIR__/'controller/app'
+require 'env'
+require 'vendor/flickr'
+acquire 'model/*.rb'
+require 'controller/app'
 
-if $0 == __FILE__
-  require __DIR__/'db/init'
-end
+require 'db/init' if SOCIAR.mode == 'dev'
 
-Ramaze.start :adapter => :thin
+r = SOCIAR.ramaze
+Ramaze.start :adapter => r.adapter,
+             :host => r.host,
+             :port => r.port

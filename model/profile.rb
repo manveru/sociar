@@ -1,10 +1,13 @@
 require 'ramaze/helper/gravatar'
 
 class Profile < Sequel::Model
-  MODELS << self
-
   include Ramaze::Helper::CGI
   include Ramaze::Helper::Gravatar
+
+  SEARCH = %w[
+  name location blog website flickr aim_name flickr_name
+  gtalk_name ichat_name youtube_name
+  ]
 
   set_schema do
     primary_key :id
@@ -38,6 +41,8 @@ class Profile < Sequel::Model
   has_many :feeds
   has_many :images
 
+  create_table unless table_exists?
+
   # has_many :
   # has_many :feed_items,
   #          :through => :feeds,
@@ -64,9 +69,6 @@ class Profile < Sequel::Model
     self.updated_at = Time.now
   end
 
-  SEARCH = %w[name location blog website flickr aim_name flickr_name gtalk_name
-    ichat_name youtube_name]
-
   def self.search(query = {})
     SEARCH.map{|key|
       key, value = key.to_sym, query[key]
@@ -86,7 +88,12 @@ class Profile < Sequel::Model
 
   def avatar(size = 50)
     s = { 50 => 'small', 100 => 'medium', 150 => 'big' }[size]
-    gravatar(email, size, "/media/avatar/default_#{s}.png")
+
+    if Ramaze::Global.mode == 'live'
+      gravatar(email, size, "/media/avatar/default_#{s}.png")
+    else
+      "/media/avatar/default_#{s}.png"
+    end
   rescue => ex
     Ramaze::Log.error(ex)
     "/media/avatar/default_#{s}.png"
@@ -157,13 +164,5 @@ class Profile < Sequel::Model
     if title and value
       %|<tr><td class="key">#{title}:</td><td class="value">#{value}</td></tr>|
     end
-  end
-
-  private
-
-  def flink(value, url = '<a href="%value">%value</a>')
-    return unless value
-    esc = h(value)
-    url.gsub('%value', esc)
   end
 end

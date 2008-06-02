@@ -29,15 +29,4 @@ class AppController < Ramaze::Controller
   end
 end
 
-require 'controller/account'
-require 'controller/admin'
-require 'controller/blog'
-require 'controller/comment'
-require 'controller/css'
-require 'controller/feed'
-require 'controller/friend'
-require 'controller/home'
-require 'controller/main'
-require 'controller/message'
-require 'controller/image'
-require 'controller/profile'
+acquire 'controller/*.rb'

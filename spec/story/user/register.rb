@@ -26,6 +26,7 @@ end
 
 describe 'User register' do
   require 'start'
+
   ramaze :adapter => :thin, :port => 7007, :run_loose => true
   behaves_like 'mechanize'
 

@@ -10,6 +10,8 @@ class FeedItem < Sequel::Model
 
     foreign_key :item_id
   end
+
+  create_table unless table_exists?
 end
 
 __END__
