@@ -1,5 +1,4 @@
-require 'sequel'
-require 'scaffolding_extensions'
+FLICKR = Flickr.new(SOCIAR.flickr)
 
 DB = Sequel.sqlite
 # DB.logger = Ramaze::Log
@@ -17,6 +16,7 @@ require 'model/image'
 require 'model/profile'
 require 'model/user'
 
+MODELS.uniq!
 MODELS.each do |mod|
   mod.create_table unless mod.table_exists?
 end

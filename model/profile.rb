@@ -1,3 +1,5 @@
+require 'ramaze/helper/gravatar'
+
 class Profile < Sequel::Model
   MODELS << self
 

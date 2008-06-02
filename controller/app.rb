@@ -1,3 +1,5 @@
+Ramaze::Helper::PATH.unshift(__DIR__/'../')
+
 class AppController < Ramaze::Controller
   box = '<div class="%key" onclick="$(this).slideUp(250);">[Hide] %value</div>'
   trait :flashbox => box

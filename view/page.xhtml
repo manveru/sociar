@@ -4,9 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title>#{ @title ||= config.site_name }</title>
+    <meta name="description" content="#{config.description}" />
+    <meta name="keywords" content="#{config.keywords.join(',')}" />
+    <title>#{ @title ||= config.title }</title>
     #{css_for %w[ reset text clearfix screen ] }
     #{js 'jquery' }
   </head>
@@ -47,8 +47,8 @@
       </div>
 
       <div id="footer">
-        Sociar is a Open Source Social Network Platform by
-        <a href="/profile/manveru">manveru</a>.<br />
+        #{config.description} by
+        <a href="/profile/#{config.author}">#{config.author}</a>.<br />
 
         <a href="http://github.com/manveru/sociar">Download Free</a>
         <a href="#">Demo</a>

@@ -3,7 +3,7 @@
     <fieldset>
       <legend>Sign up</legend>
 
-      <p>Welcome to #{config.site_name}, we are currently in private beta.</p>
+      <p>Welcome to #{config.title}, we are currently in private beta.</p>
 
       <?r @user.errors.full_messages.each do |msg| ?>
         <div style="background: #f00;"> #{msg} </div>

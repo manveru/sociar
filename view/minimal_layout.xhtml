@@ -4,11 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title>#{ @title ||= config.site_name }</title>
-    #{%w[reset text clearfix screen].map{|c| css(c) }.join("\n")}
-    #{js('jquery')}
+    <meta name="description" content="#{config.description}" />
+    <meta name="keywords" content="#{config.keywords.join(',')}" />
+    <title>#{ @title ||= config.title }</title>
+    #{css_for %w[ reset text clearfix screen ] }
+    #{js 'jquery' }
   </head>
   <body>
     <div id="minimal-layout">

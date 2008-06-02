@@ -2,7 +2,7 @@ module Ramaze
   module Helper
     module Config
       def config
-        CONFIGURATION
+        SOCIAR
       end
     end
   end

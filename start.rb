@@ -1,22 +1,17 @@
 require 'rubygems'
 require 'ramaze'
-require 'ramaze/helper/gravatar'
-
-$LOAD_PATH.unshift(__DIR__/:vendor)
-Ramaze::Helper::PATH.unshift(__DIR__)
-
 require 'maruku'
-require 'flickr'
+require 'sequel'
+require 'scaffolding_extensions'
 
-FLICKR = Flickr.new(File.read('/home/manveru/.flickr_api_key').strip)
+require __DIR__/'vendor/flickr'
+require __DIR__/'settings'
 
-require 'model/app'
-require 'controller/app'
-
-CONFIGURATION = Struct.new(:site_name).new('Sociar')
+require __DIR__/'model/app'
+require __DIR__/'controller/app'
 
 if $0 == __FILE__
-  require 'db/init'
+  require __DIR__/'db/init'
 end
 
 Ramaze.start :adapter => :thin
