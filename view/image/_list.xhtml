@@ -1,7 +1,7 @@
 <div id="images">
   <?r if @images.each{|image| ?>
     <div class="image">
-      #{image.linked(:large)}
+      #{image.lightbox}
       <?r if @private ?>
         (#{image.delete_link})
       <?r end ?>

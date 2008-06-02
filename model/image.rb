@@ -4,7 +4,10 @@ class Image < Sequel::Model
 
   PATH = "/image"
   SIZES = {
-    :small => 50, :medium => 100, :large => 150
+    :small => 50,
+    :medium => 100,
+    :large => 150,
+    :lightbox => 500
   }
 
   set_schema do
@@ -56,13 +59,10 @@ class Image < Sequel::Model
     end
   end
 
-  def small;  public_file(:small); end
-  def medium; public_file(:medium); end
-  def large;  public_file(:large); end
-
-  def small_url; file(:small); end
-  def medium_url; file(:medium); end
-  def large_url; file(:large); end
+  SIZES.each do |name, size|
+    define_method(name){ public_file(name) }
+    define_method("#{name}_url"){ file(name) }
+  end
 
   def self.latest(n = 10)
     order(:created_at.desc).limit(n).eager(:profile)
@@ -114,6 +114,16 @@ class Image < Sequel::Model
     %|<a href="#{file}"><img src="#{src}"alt="#{h caption}" /></a>|
   end
 
+  def lightbox(size = :large)
+    href = lightbox_url
+    src = send("#{size}_url")
+    rel = "lightbox[#{profile_id}]"
+    title = h(caption)
+    [%|<a href="#{href}" rel="#{rel}" title="#{title}">|,
+        %|<img src="#{src}" alt="#{title}" />|,
+     '</a>'].join
+  end
+
   def delete_link
     href = R(ImageController, :delete, id)
     %|<a href="#{href}" class="location">Delete</a>|
@@ -144,7 +154,7 @@ class Image < Sequel::Model
         out = public_file(name)
         next if File.file?(out)
 
-        img.cropped_thumbnail(size) do |thumb|
+        img.thumbnail(size) do |thumb|
           thumb.save(out)
         end
       end

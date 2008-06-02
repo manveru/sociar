@@ -7,8 +7,8 @@
     <meta name="description" content="#{config.description}" />
     <meta name="keywords" content="#{config.keywords.join(',')}" />
     <title>#{ @title ||= config.title }</title>
-    #{css_for %w[ reset text clearfix screen ] }
-    #{js 'jquery' }
+    #{css_for %w[ reset text clearfix screen lightbox ] }
+    #{js_for %w[ jquery lightbox ] }
   </head>
   <body>
     <div id="layout">
