@@ -69,7 +69,7 @@ if User.count == 0
   end
 
   admin = User[:login => SOCIAR.site.admin]
-  admin.set :is_admin => true
+  admin.update_values :is_admin => true
   blog = Blog.new(:profile => admin.profile)
   blog.title = 'Welcome to Sociar'
   blog.body = 'Well, here it is. Sociar is now yours!'
