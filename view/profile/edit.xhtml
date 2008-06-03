@@ -6,7 +6,7 @@
 
   <h1>Edit Profile</h1>
 
-  <form id="general" method="post" action="/profile/edit" name="profile/edit">
+  <form id="general" method="post" action="/profile/edit/general" name="profile/edit">
     <fieldset>
       <legend>General Info</legend>
 
@@ -28,7 +28,17 @@
     </fieldset>
   </form>
 
-  <form id="password" method="post" action="/profile/password" name="profile/password">
+  <form id="openid" method="post" action="/profile/edit/openid" name="profile/openid">
+    <fieldset>
+      <legend>Change OpenID</legend>
+
+      #{ form_text 'Your OpenID', :openid, user.openid }
+
+      <input type="submit" value="Change OpenID" class="button" />
+    </fieldset>
+  </form>
+
+  <form id="password" method="post" action="/profile/edit/password" name="profile/password">
     <fieldset>
       <legend>Change Password</legend>
 

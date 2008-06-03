@@ -85,11 +85,15 @@ class User < Sequel::Model
   end
 
   def self.authenticate(hash)
-    login, pass = hash['login'], hash['password']
+    if oid = hash['openid']
+      User[:openid => oid]
+    else
+      login, pass = hash['login'], hash['password']
 
-    if user = User[:login => login]
-      return user unless pass # we don't store the password in the session...
-      user if user.authenticated?(pass)
+      if user = User[:login => login]
+        return user unless pass # we don't store the password in the session...
+        user if user.authenticated?(pass)
+      end
     end
   end
 

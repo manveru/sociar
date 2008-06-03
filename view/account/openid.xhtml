@@ -1,12 +1,12 @@
 <div id="login">
-  <form method="POST" name="login">
+  <form method="post" name="login" action="#{Rs :openid_begin}">
     <fieldset>
       <legend>OpenID Login</legend>
 
       <p>#{ A 'Standard login is over here', :href => Rs(:login) }</p>
 
-      #{ form_text 'OpenID', 'openid', @openid }
-      #{ form_checkbox 'Remember me', 'remember', true }
+      <label for="url">Identity URL:</label>
+      <input type="text" name="url" id="url" value="#{h @url}" />
 
       <input type="submit" value="Log-in Now" class="button" />
 

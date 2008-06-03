@@ -13,19 +13,43 @@ class ProfileController < AppController
     end
   end
 
+  def search
+    if q = request[:q]
+      terms = {'login' => q}
+    else
+      terms = request.params
+    end
+
+    @results = Profile.search(terms)
+  end
+
   # FIXME: make this more strict
-  def edit
+  def edit(section = nil)
     redirect_referrer unless logged_in?
+
     @profile = user.profile
 
-    if request.post?
-      @profile.update_values(request.params)
+    case section
+    when 'general', 'openid', 'password'
+      if request.post?
+        send("edit_#{section}")
+        redirect Rs(:edit)
+      end
     end
   end
 
-  def password
-    redirect_referrer unless logged_in?
+  private
 
+  def edit_general
+    @profile.update_values(request.params)
+  end
+
+  def edit_openid
+    return unless oid = request['openid']
+    user.update_values(:openid => oid)
+  end
+
+  def edit_password
     current, new, confirm = form = request[:current, :new, :confirm]
 
     if form.all?
@@ -50,24 +74,9 @@ class ProfileController < AppController
         flash[:bad] = "Current password wrong"
       end
     end
-
-    redirect_referrer
-    p request.params
-    {"new"=>"letmein", "confirm"=>"letmein", "current"=>"letmein"}
   end
 
-  def search
-    if q = request[:q]
-      terms = {'login' => q}
-    else
-      terms = request.params
-    end
-
-    @results = Profile.search(terms)
-  end
-
-  private
-
+  # TODO: get rid of those
   def profile_empty?
     @profile.no_data?
   end
