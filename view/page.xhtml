@@ -20,9 +20,11 @@
         <div id="menu">
           <div class="top">
             <?r if logged_in? ?>
+              <?r if user.is_admin ?>
+                #{ A 'Admin', :href => R(AdminController) }
+              <?r end ?>
               #{ A 'Newest Stuff', :href => R(IndexController) }
               #{ A 'Dashboard', :href => R(ProfileController) }
-              #{ A 'Admin', :href => R(AdminController) }
               #{ A 'Logout', :href => R(AccountController, :logout) }
             <?r else ?>
               #{ A 'Login', :href => R(AccountController, :login) }
