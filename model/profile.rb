@@ -138,6 +138,15 @@ class Profile < Sequel::Model
     Message.filter(:from_id => id).order(:created_at.desc).limit(n)
   end
 
+  # Autocomplete
+
+  def self.autocomplete(query)
+    return [] unless query
+
+    sql = ["login LIKE '%' || ? || '%'", query]
+    order(:login).where(sql).map{|profile| profile.login}
+  end
+
   # Quick profile access
 
   def to_url

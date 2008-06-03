@@ -2,7 +2,7 @@
   <h1>Message Center</h1>
 
   <div id="send">
-    <form name="message/new">
+    <form method="post" action="/message" name="message/send">
       <fieldset>
         <legend>Send a Message</legend>
 
@@ -22,7 +22,9 @@
     <h2>Received</h2>
     <?r if @received.each{|message| ?>
       <div class="message">
-        #{h message.body}
+        <div class="from">From: #{message.from.name_linked}</div>
+        <div class="subject">Subject: #{h message.subject}</div>
+        <div class="body">#{h message.body}</div>
       </div>
     <?r }.empty? ?>
       You have not received any messages yet
@@ -31,7 +33,9 @@
     <h2>Sent</h2>
     <?r if @sent.each{|message| ?>
       <div class="message">
-        #{h message.body}
+        <div class="to">To: #{message.to.name_linked}</div>
+        <div class="subject">Subject: #{h message.subject}</div>
+        <div class="body">#{h message.body}</div>
       </div>
     <?r }.empty? ?>
       You have not received any messages yet
