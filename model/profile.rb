@@ -73,10 +73,19 @@ class Profile < Sequel::Model
   end
 
   def self.search(query = {})
-    SEARCH.map{|key|
-      key, value = key.to_sym, query[key]
-      self.filter(key => value).all if value
-    }.flatten.compact.uniq
+    ds = order(:name, :login)
+
+    (query.keys & SEARCH).each do |key|
+      sql = ["#{key} LIKE '%' || ? || '%'", query[key]]
+
+      if ds.sql =~ /WHERE/
+        ds = ds.or(sql)
+      else
+        ds = ds.where(sql)
+      end
+    end
+
+    ds
   end
 
   def self.latest(n = 10)
