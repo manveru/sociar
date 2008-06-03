@@ -33,11 +33,11 @@
     No Comments yet
   <?r end ?>
 
-  <?r if logged_in? ?>
+  <?r if logged_in? and user != @user ?>
     <div id="leave-comment">
       <a onclick="return $('#comment-form').toggle(500);">Leave a comment</a>
       <div id="comment-form">
-        <form action="#{R CommentController, :profile, @user.id }" name="comment">
+        <form action="#{R CommentController, :profile, @profile.id }" name="comment" method="post">
           <textarea name="comment"></textarea>
           <input type="submit" class="button" value="Add Comment" />
         </form>
