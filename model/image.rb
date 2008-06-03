@@ -148,7 +148,7 @@ class Image < Sequel::Model
     FileUtils.mkdir_p(public_path)
 
     ImageScience.with_image(original) do |img|
-      puts "Generate Thumbnails for: #{original}"
+      Ramaze::Log.debug "Generate Thumbnails for: #{original}"
 
       sizes.each do |name, size|
         out = public_file(name)
