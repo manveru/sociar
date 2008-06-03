@@ -126,6 +126,10 @@ class Profile < Sequel::Model
     Blog.filter(:profile_id => self.id).order(:created_at).limit(n)
   end
 
+  def received_comments(n = 10)
+    Comment.filter(:to_id => id).order(:created_at.desc).limit(n)
+  end
+
   # Quick profile access
 
   def to_url

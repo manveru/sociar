@@ -4,7 +4,7 @@ class ProfileController < AppController
   def index(login = nil)
     if @user = login_or_user(login)
       @flickr = @profile.flickr_photos
-      @comments = Comment.filter(:to_id => @profile.id)
+      @comments = @profile.received_comments
       @images = @profile.images
 
       @private = is_private?
