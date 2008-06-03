@@ -20,6 +20,7 @@ SOCIAR = Configuration.for('sociar'){
     host '0.0.0.0'
     port 7000
     adapter :thin
+    boring [/\.css$/]
   end
 
   sequel do

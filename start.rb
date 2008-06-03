@@ -17,4 +17,5 @@ require 'db/init' if SOCIAR.mode == 'dev'
 r = SOCIAR.ramaze
 Ramaze.start :adapter => r.adapter,
              :host => r.host,
-             :port => r.port
+             :port => r.port,
+             :boring => r.boring
