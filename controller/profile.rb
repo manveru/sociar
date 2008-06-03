@@ -15,7 +15,7 @@ class ProfileController < AppController
 
   def search
     if q = request[:q]
-      terms = {'login' => q}
+      terms = {'login' => q, 'name' => q}
     else
       terms = request.params
     end
