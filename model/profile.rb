@@ -130,6 +130,14 @@ class Profile < Sequel::Model
     Comment.filter(:to_id => id).order(:created_at.desc).limit(n)
   end
 
+  def received_messages(n = 10)
+    Message.filter(:to_id => id).order(:created_at.desc).limit(n)
+  end
+
+  def sent_messages(n = 10)
+    Message.filter(:from_id => id).order(:created_at.desc).limit(n)
+  end
+
   # Quick profile access
 
   def to_url

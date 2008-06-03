@@ -19,7 +19,6 @@ class ProfileController < AppController
     @profile = user.profile
 
     if request.post?
-      pp request.params
       @profile.update_values(request.params)
     end
   end

@@ -7,8 +7,8 @@
     <meta name="keywords" content="#{config.keywords.join(',')}" />
     <title>#{ @title ||= config.title }</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    #{css_for %w[ reset text clearfix screen lightbox ] }
-    #{js_for %w[ jquery lightbox ] }
+    #{css_for %w[ reset text clearfix screen lightbox jqac ] }
+    #{js_for %w[ jquery lightbox jqac common ] }
   </head>
   <body>
     <div id="layout">

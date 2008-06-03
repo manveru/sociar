@@ -1,0 +1,40 @@
+<div id="message">
+  <h1>Message Center</h1>
+
+  <div id="send">
+    <form name="message/new">
+      <fieldset>
+        <legend>Send a Message</legend>
+
+        <label for="login">To:</label>
+        <input type="text" name="login" id="login"
+          onfocus="$(this).autocomplete({ajax_get:message, minchars: 1, autowidth:true})"
+        />
+        <div class="clearfix"></div>
+        #{ form_text('Subject', :subject, @message.subject) }
+        #{ form_textarea('Message', :body, @message.body) }
+
+        <input type="submit" value="Send" />
+      </fieldset>
+    </form>
+  </div>
+  <div id="history">
+    <h2>Received</h2>
+    <?r if @received.each{|message| ?>
+      <div class="message">
+        #{h message.body}
+      </div>
+    <?r }.empty? ?>
+      You have not received any messages yet
+    <?r end ?>
+
+    <h2>Sent</h2>
+    <?r if @sent.each{|message| ?>
+      <div class="message">
+        #{h message.body}
+      </div>
+    <?r }.empty? ?>
+      You have not received any messages yet
+    <?r end ?>
+  </div>
+</div>
