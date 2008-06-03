@@ -1,6 +1,8 @@
 <div id="message">
   <h1>Message Center</h1>
 
+  <h2><a onclick="return $('#send').toggle(500);">Send a message</a></h2>
+
   <div id="send">
     <form method="post" action="/message" name="message/send">
       <fieldset>
@@ -17,7 +19,10 @@
         <input type="submit" value="Send" />
       </fieldset>
     </form>
+
+    <script>$('#send').hide();</script>
   </div>
+
   <div id="history">
     <h2>Received</h2>
     <?r if @received.each{|message| ?>
