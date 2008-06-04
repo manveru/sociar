@@ -108,7 +108,6 @@ class Image < Sequel::Model
     "%s_%08d%s" % [profile.user.login, n, ext]
   end
 
-  # TODO: lightbox
   def linked(size)
     src = send("#{size}_url")
     %|<a href="#{file}"><img src="#{src}"alt="#{h caption}" /></a>|
