@@ -13,7 +13,7 @@ class AccountController < AppController
       if @user.save
         flash[:good] = "You signed up, welcome on board #{@user.login}!"
         user_login('login' => @user.login)
-        redirect R(ProfileController, @user.login)
+        answer R(ProfileController, @user.login)
       end
     end
   end
@@ -21,10 +21,12 @@ class AccountController < AppController
   # TODO: use stack
   def login
     redirect_referrer if logged_in?
+    push referrer unless inside_stack?
     return unless request.post?
+
     if user_login
       flash[:good] = "Welcome back #{user.login}"
-      redirect R(ProfileController, user.login)
+      answer R(ProfileController, user.login)
     end
   end
 
@@ -36,7 +38,6 @@ class AccountController < AppController
     @url = request[:url] || @oid
 
     if @oid
-      p @oid
       openid_finalize
     elsif request.post?
       openid_begin
@@ -47,10 +48,13 @@ class AccountController < AppController
 
   def logout
     user_logout
+
     [:openid, :openid_identity, :openid_sreg].each do |sym|
       session.delete(sym)
     end
+
     flash[:good] = "You logged out successfully"
+
     redirect R(:/)
   end
 

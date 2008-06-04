@@ -25,7 +25,7 @@ class ProfileController < AppController
 
   # FIXME: make this more strict
   def edit(section = nil)
-    redirect_referrer unless logged_in?
+    login_first
 
     @profile = user.profile
 

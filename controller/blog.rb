@@ -10,7 +10,8 @@ class BlogController < AppController
   end
 
   def edit(id)
-    redirect_referrer unless logged_in?
+    login_first
+
     @user, @profile = user, user.profile
     redirect_referrer unless @post = Blog[id]
     @legend = "Edit Post"
@@ -20,7 +21,8 @@ class BlogController < AppController
   end
 
   def new
-    redirect_referrer unless logged_in?
+    login_first
+
     @user, @profile = user, user.profile
     @post = Blog.new(:profile => @profile)
     @legend = "New Post"

@@ -1,6 +1,6 @@
 class MessageController < AppController
   def index
-    redirect_referrer unless logged_in?
+    login_first
 
     @profile = user.profile
     @received = @profile.received_messages
@@ -12,7 +12,7 @@ class MessageController < AppController
   end
 
   def complete
-    redirect_referrer unless logged_in?
+    login_first
 
     logins = Profile.autocomplete(request[:q])
     logins.delete user.login # don't show yourself

@@ -7,11 +7,16 @@ class AppController < Ramaze::Controller
   def self.inherited(klass)
     super
     klass.helper :xhtml, :config, :user, :formatting,
-                 :form, :gravatar
+                 :form, :gravatar, :stack
     klass.layout '/page'
   end
 
   private
+
+  def login_first
+    return if logged_in?
+    call R(AccountController, :login)
+  end
 
   def is_private?
     if logged_in? and @user.login == user.login

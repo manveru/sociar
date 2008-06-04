@@ -2,7 +2,8 @@ class CommentController < AppController
   # comment on profile
   # TODO
   def profile(id)
-    redirect_referrer unless logged_in?
+    login_first
+
     from, to = user.profile, Profile[id]
     body = request[:comment]
 
