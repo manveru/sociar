@@ -191,7 +191,8 @@ a
       :padding-left 1em
       :background #f60
     .post, .comment
-      :padding-left 1em
+      :margin-left 1em
+      :padding 1em
     #comment-form
       textarea
         :width 90%
@@ -224,25 +225,40 @@ a
     input
       :background #f00
 
-
 #blog
-  h1
-    :margin 0
   #sidebar
-    :width 160px
+    :width 200px
     :float left
-    #avatar
-      :width 160px
-    #history
-      h3
-        :font-size 1em
-      .item
-        :font-size 0.9em
-      .ago
-        :font-size 0.8em
-  #post
-    h2
-      :text-align center
+  .post
+    :margin-left 200px
+    :padding 1em
+
+/*
+  #blog
+    h1
+      :margin 0
+    .post
+      :background #f00
+      :padding 1em
+      :float right
+      :width 50%
+      h2
+        :text-align center
+    #sidebar
+      :width 170px
+      :float left
+      #avatar
+        :width 160px
+      #history
+        :background #f00
+        h3
+          :font-size 1em
+        .item
+          :font-size 0.9em
+          :background #ff0
+          :border 1px solid black
+        .ago
+          :font-size 0.8em
 
 #blog-mod
   form

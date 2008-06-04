@@ -18,7 +18,13 @@
 
   <?r if @profile.blog_posts.each{|post| ?>
     <div class="post">
-      #{ A h(post.title), :href => R(BlogController, post.to_url) }
+      <?r if user == @user ?>
+        <div class="modify">
+          #{ A "Edit", :href => Rs(:edit, @blog.id) }
+        </div>
+      <?r end ?>
+      <h4>#{post.title_linked}</h4>
+      <p>#{post.abstract(200)}</p>
     </div>
   <?r }.empty? ?>
     No Blog Posts

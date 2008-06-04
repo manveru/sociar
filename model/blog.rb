@@ -1,4 +1,7 @@
 class Blog < Sequel::Model
+  include Ramaze::Helper::Link
+  include Ramaze::Helper::CGI
+
   set_schema do
     primary_key :id
 
@@ -19,6 +22,8 @@ class Blog < Sequel::Model
   belongs_to :profile
   has_many :comments
 
+  before_create{ self.created_at = Time.now }
+  before_save{ self.updated_at = Time.now }
   after_create do
     # feed_item = FeedItem.create(:item => self)
     # affected_profiles.each do |pr|
@@ -36,6 +41,20 @@ class Blog < Sequel::Model
 
   def linkable_title
     title.gsub(/\W+/, '-').downcase
+  end
+
+  def title_linked
+    A h(title), :href => R(BlogController, to_url)
+  end
+
+  def abstract(size = 50)
+    if size and body.size > size
+      b = body[0..size] + '...'
+    else
+      b = body
+    end
+
+    h(b).gsub("\n", "<br />")
   end
 
   def affected_profiles

@@ -1,9 +1,9 @@
-<div id="post">
+<div class="post">
   <?r if user == @user ?>
     <div class="modify">
       #{ A "Edit", :href => Rs(:edit, @blog.id) }
     </div>
   <?r end ?>
-  <h2>#{h @blog.title }</h2>
+  <h2>#{ A h(@blog.title), :href => R(BlogController, @blog.to_url) }</h2>
   <p>#{h(@blog.body).gsub("\n", "<br />") }</p>
 </div>
