@@ -77,7 +77,6 @@ a
 
 #layout
   #header
-    // :background #111
     :background #fec
     :display block
     :padding 1em
@@ -86,6 +85,7 @@ a
     #logo
       :float left
     #menu
+      :margin-right 1em
       :text-align right
       a
         :font-size 1.2em
@@ -145,11 +145,22 @@ a
           :height 100px
   #footer
     :text-align center
-    :margin-top 2em
-    a
-      :color #06a
-      :margin-left 0.2em
-      :margin-right 0.2em
+    :margin-top 1em
+    :width 100%
+    .info
+      :-moz-border-radius= !border_radius
+      // :margin-left 25%
+      :background #fdb
+      :float left
+      :width 90%
+      a
+        :margin-right 0.2em
+        :margin-left 0.2em
+        :color #06a
+    img
+      :text-align center
+      :height 40
+      :width 40
 
 #search-box
   :margin-top 1em
@@ -232,33 +243,6 @@ a
   .post
     :margin-left 200px
     :padding 1em
-
-/*
-  #blog
-    h1
-      :margin 0
-    .post
-      :background #f00
-      :padding 1em
-      :float right
-      :width 50%
-      h2
-        :text-align center
-    #sidebar
-      :width 170px
-      :float left
-      #avatar
-        :width 160px
-      #history
-        :background #f00
-        h3
-          :font-size 1em
-        .item
-          :font-size 0.9em
-          :background #ff0
-          :border 1px solid black
-        .ago
-          :font-size 0.8em
 
 #blog-mod
   form
