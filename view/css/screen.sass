@@ -216,7 +216,6 @@ a
     :padding-bottom 1em
   label
     :width 9em
-  textarea
   textarea, input
     :width 250px
   input.button
@@ -224,17 +223,16 @@ a
     :margin-left auto
     :margin-right auto
     :margin-bottom -1em
-  #general
+  #general, #openid, #password, #delete
     :width 49%
     :float left
-  #password
-    :width 49%
-    :float right
+    input.button
+      :width 15em
+      :margin-left 2em
   #delete
-    :width 49%
-    :float right
-    input
+    input.button
       :background #f00
+      :width auto
 
 #blog
   #sidebar
