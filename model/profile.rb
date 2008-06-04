@@ -167,7 +167,7 @@ class Profile < Sequel::Model
   end
 
   def avatar_linked_image(size = 50)
-    %|<a href="#{to_url}"><img src="#{avatar(size)}"alt="Avatar" /></a>|
+    %|<a href="#{to_url}"><img src="#{avatar(size)}" alt="Avatar" /></a>|
   end
 
   def name_linked
