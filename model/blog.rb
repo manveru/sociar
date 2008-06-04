@@ -16,12 +16,17 @@ class Blog < Sequel::Model
 
   create_table unless table_exists?
 
-  validations.clear
-  validates_presence_of :title, :body, :profile_id
-
   belongs_to :profile
   has_many :comments
 
+  validations.clear
+  validates do
+    presence_of :title, :body, :profile_id
+    format_of :title, :with => /\A.*\S+.*\Z/, :message => 'is empty'
+    format_of :body, :with => /\A.*\S+.*\Z/, :message => 'is empty'
+  end
+
+  hooks.clear
   before_create{ self.created_at = Time.now }
   before_save{ self.updated_at = Time.now }
   after_create do

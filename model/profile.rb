@@ -46,19 +46,17 @@ class Profile < Sequel::Model
 
   create_table unless table_exists?
 
-  # has_many :
-  # has_many :feed_items,
-  #          :through => :feeds,
-  #          :order => 'created_at desc'
-  # has_many :private_feed_items,
-  #          :through => :feeds, :source => :feed_item,
-  #          :conditions => {:is_public => false},
-  #          :order => 'created_at desc'
-  # has_many :public_feed_items,
-  #          :through => :feeds,
-  #          :source => :feed_item,
-  #          :conditions => {:is_public => true},
-  #          :order => 'created_at desc'
+  # Validation
+  validations.clear
+  validates do
+    uniqueness_of :login, :email
+
+    format_of :login, :with => /\A[\w.]+\z/
+    length_of :login, :within => 3..255
+
+    format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    length_of :email, :within => 3..255
+  end
 
   # Hooks
   hooks.clear
