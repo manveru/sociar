@@ -76,26 +76,31 @@ class ProfileController < AppController
     end
   end
 
-  # TODO: get rid of those
-  def profile_empty?
-    @profile.no_data?
+  def blurps
+    @profile = user.profile
+
+    BLURPS.map{|section|
+      @name, @link, @title, @text = section
+      @img = "/media/blurp/#{@name.downcase}.png"
+
+      render_template('_blurp.xhtml') # if @profile.send("#{@name}_empty?")
+    }.compact.join("\n")
   end
 
-  def images_empty?
-    @profile.images.empty?
-  end
+  BLURPS = [
+    [ 'profile', R(self, :edit), 'Set up your profile',
+      'Your public profile is the way your friends will learn about you and keep up-to-date on your life. Upload a profile photo, add an "about me", connect with new and old friends.' ],
 
-  def friends_empty?
-    return true
-    @profile.followings.empty? and @profile.friends.empty?
-  end
+    [ 'images', R(ImageController), 'Share photos, drawings, sketches...',
+      'You can upload images with captions to your profile. Build albums, tag and comment on images!' ],
 
-  def messages_empty?
-    return true
-    @profile.sent_messages.empty?
-  end
+    [ 'friends', R(:/), 'Find friends',
+      "Finding your friends is easy, get started by searching for profiles on #{config.title}." ],
 
-  def blogs_empty?
-    @profile.blogs.empty?
-  end
+    [ 'messages', R(MessageController), 'Message friends',
+      "Exchange messages with friends and other people on #{config.title}. We already sent you a message to get you started." ],
+
+    [ 'blog', R(BlogController), 'Start blogging',
+      "Share your thoughts with the world, no matter if you want to write whole essays or just a little something about how you feel." ],
+  ]
 end

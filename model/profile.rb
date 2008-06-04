@@ -92,8 +92,28 @@ class Profile < Sequel::Model
     order(:created_at.desc).limit(n)
   end
 
-  def no_data?
+  # Check things to do
+
+  def profile_empty?
     (created_at <=> updated_at) == 0
+  end
+
+  def images_empty?
+    images.empty?
+  end
+
+  def messages_empty?
+    sent_messages.empty?
+  end
+
+  def blog_empty?
+    blogs.empty?
+  end
+
+  # TODO
+  def friends_empty?
+    return true
+    @profile.followings.empty? and @profile.friends.empty?
   end
 
   # Profile out
