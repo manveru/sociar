@@ -1,6 +1,4 @@
 class ImageController < AppController
-  helper :form
-
   def index(login = nil)
     if @user = login_or_user(login)
       @images = @profile.images

@@ -1,5 +1,5 @@
 class ProfileController < AppController
-  helper :form, :gravatar
+  helper :gravatar
 
   def index(login = nil)
     if @user = login_or_user(login)

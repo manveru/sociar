@@ -1,6 +1,4 @@
 class BlogController < AppController
-  helper :form
-
   def index(login = nil, title = nil)
     @user = login_or_user(login)
     @blogs = @profile.blogs

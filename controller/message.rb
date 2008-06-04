@@ -1,6 +1,4 @@
 class MessageController < AppController
-  helper :form
-
   def index
     redirect_referrer unless logged_in?
 
