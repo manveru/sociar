@@ -73,6 +73,8 @@ class Profile < Sequel::Model
   end
 
   def self.search(query = {})
+    return [] if query.empty?
+
     ds = order(:name, :login)
 
     (query.keys & SEARCH).each do |key|
