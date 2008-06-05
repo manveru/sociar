@@ -39,4 +39,5 @@ class AppController < Ramaze::Controller
   end
 end
 
+require 'controller/image'
 acquire 'controller/*.rb'
