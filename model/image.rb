@@ -85,8 +85,6 @@ class Image < Sequel::Model
     FileUtils.cp(tempfile.path, target_path)
     image.original = target_path
     image.save
-    profile.add_image(image)
-    profile.save
   end
 
   def self.ext_for(mime, name)
