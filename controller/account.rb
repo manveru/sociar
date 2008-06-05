@@ -21,7 +21,7 @@ class AccountController < AppController
   # TODO: use stack
   def login
     redirect_referrer if logged_in?
-    push referrer unless inside_stack?
+    push request.referrer unless inside_stack?
     return unless request.post?
 
     if user_login
