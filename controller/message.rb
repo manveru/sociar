@@ -23,14 +23,18 @@ class MessageController < AppController
 
   def send
     from = user.profile
+    to = Profile[:login => request[:login]]
 
-    if to = Profile[:login => request[:login]]
+    if to and from != to
       @message.update_values(:from_id => from.id, :to_id => to.id)
+
       if @message.save
         flash[:good] = "Message sent"
       else
         flash[:bad] = @message.errors.full_messages
       end
+    else
+      flash[:bad] = "Recipient invalid"
     end
     redirect Rs()
   end
