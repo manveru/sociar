@@ -33,3 +33,10 @@ github as well.
     git clone git://github.com/manveru/ramaze
 
 # Setup
+
+# Contributing
+
+  git clone git://github.com/manveru/sociar
+  cd sociar
+  git branch ticgit origin/ticgit
+  ti list
