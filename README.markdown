@@ -25,7 +25,7 @@ page](http://github.com/manveru/sociar)
 First you'll need the dependencies installed:
 
     gem install faker erubis scaffolding_extensions xml-simple maruku thin \
-                rack haml sequel sqlite3-ruby
+                rack haml sequel sqlite3-ruby configuration
 
 Also, make sure to have the latest version of Ramaze, you get get it from
 github as well.
