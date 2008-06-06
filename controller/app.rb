@@ -40,4 +40,6 @@ class AppController < Ramaze::Controller
 end
 
 require 'controller/image'
+require 'controller/message'
+require 'controller/blog'
 acquire 'controller/*.rb'
