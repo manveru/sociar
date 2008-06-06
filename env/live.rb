@@ -6,5 +6,6 @@ Configuration.for 'sociar' do
 
   sequel do
     db 'sqlite:///sociar.db'
+    logger nil
   end
 end
