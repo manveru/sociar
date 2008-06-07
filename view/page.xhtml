@@ -7,18 +7,20 @@
     <meta name="keywords" content="#{config.keywords.join(',')}" />
     <title>#{ @title ||= config.title }</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    #{css_for %w[ reset text clearfix screen lightbox jqac ] }
+    #{css_for %w[ reset text clearfix common layout lightbox jqac ] }
     #{js_for %w[ jquery lightbox jqac common ] }
   </head>
   <body>
     <div id="layout">
       <div id="header" class="clearfix">
         <div id="logo">
-          <a href="/"><img src="/media/sociar.png" alt="Sociar" /></a>
+          <h1><a href="/">Sociar</a></h1>
         </div>
 
         <div id="menu">
           <div class="top">
+            #{ A 'About', :href => R(IndexController, :about) }
+
             <?r if logged_in? ?>
               <?r if user.is_admin ?>
                 #{ A 'Admin', :href => R(AdminController) }
@@ -30,19 +32,19 @@
               #{ A 'Login', :href => R(AccountController, :login) }
               #{ A 'Register', :href => R(AccountController, :register) }
             <?r end ?>
-
-            #{ A 'Search', :href => R(ProfileController, :search) }
           </div>
+        </div>
 
+        <div id="searchbox">
           <form method="get" action="/profile/search" id="search-box" name="search">
             <label for="q">Search:</label>
             <input type="text" name="q" id="q" />
           </form>
         </div>
+      </div>
 
-        <div id="flashbox">
-          #{flashbox}
-        </div>
+      <div id="flashbox">
+        #{flashbox}
       </div>
 
       <div id="content" class="clearfix">

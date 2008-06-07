@@ -7,11 +7,11 @@
     <meta name="keywords" content="#{config.keywords.join(',')}" />
     <title>#{ @title ||= config.title }</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    #{css_for %w[ reset text clearfix screen ] }
+    #{css_for %w[ reset text clearfix common minimal ] }
     #{js 'jquery' }
   </head>
   <body>
-    <div id="minimal-layout">
+    <div id="layout">
       <div id="header">
         <a href="/"><img src="/media/sociar.png" alt="Sociar" /></a>
       </div>

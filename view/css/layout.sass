@@ -1,0 +1,210 @@
+// vi: syntax=sass
+
+#header
+  :background #fff
+  :padding 1em
+  :border-bottom 1em solid #222
+  #logo
+    :float left
+    h1
+      :font-size 3em
+      :margin 0
+      :font-style italic
+  #menu
+    :margin-right 1em
+    :text-align right
+    a
+      :font-size 1.5em
+      :text-decoration none
+      :margin-left 0.5em
+      :margin-right 0.5em
+    a:hover
+      :background #fff
+
+#searchbox
+  :margin-top 1em
+  label, input
+    :font-size 0.9em
+#searchbox
+  :float right
+  :vertical-align middle
+  :line-height 2em
+  label
+    :width auto
+
+#content
+  :padding 1em
+  :display block
+  :background #fec
+  #sub_menu
+    :text-align center
+    :margin 1em
+    a
+      :padding-left 0.2em
+      :padding-right 0.2em
+      :margin 0.3em
+      :border 1px solid #f60
+      :background #fdb
+  #banner
+    :width 100%
+    :text-align center
+  #latest
+    .latest-column
+      :width 31.66%
+      :margin 0.5em
+      :float left
+      h3
+        :text-align center
+    #members
+      .member
+        :width 100%
+        :margin-bottom 1em
+        .avatar
+          :width 60px
+          :height 60px
+          :float left
+        .info
+          .name
+          .location
+            :font-size 0.7em
+    #images
+      :width 200px
+      :text-align center
+      .image
+        :margin-top 1em
+        :float left
+        :width 100px
+        :height 100px
+
+#footer
+  :text-align center
+  :margin-top 1em
+  :width 100%
+  .info
+    // :margin-left 25%
+    :background #fdb
+    :float left
+    :width 90%
+    a
+      :margin-right 0.2em
+      :margin-left 0.2em
+      :color #06a
+  img
+    :text-align center
+    :height 40
+    :width 40
+
+#comments
+  .comment
+    :width 100%
+    :margin-bottom 1em
+    .avatar
+      :width 60px
+      :float left
+    .message
+      .head
+        :font-size 0.8em
+      .body
+
+#profile
+  #summary
+    #name-location
+      :text-align center
+      :padding-bottom 1em
+      h1
+        :margin 0
+      a.location
+        :font-size 1.2em
+  .section
+    :padding-bottom 2em
+    h3
+      :font-size 1.2em
+      :padding-left 1em
+      :background #f60
+    .post, .comment
+      :margin-left 1em
+      :padding 1em
+    #comment-form
+      textarea
+        :width 90%
+        :height 10em
+
+.blurp
+  :padding 1em
+  .image
+    :float left
+
+#profile-edit
+  form
+    :margin-bottom 1em
+  legend
+    :padding-bottom 1em
+  label
+    :width 9em
+  textarea, input
+    :width 250px
+  input.button
+    :width 100%
+    :margin-left auto
+    :margin-right auto
+    :margin-bottom -1em
+  #general, #openid, #password, #delete
+    :width 49%
+    :float left
+    input.button
+      :width 15em
+      :margin-left 2em
+  #delete
+    input.button
+      :background #f00
+      :width auto
+
+#blog
+  #sidebar
+    :width 200px
+    :float left
+  .post
+    :margin-left 200px
+    :padding 1em
+
+#blog-mod
+  form
+    :width 90%
+  label
+    :width 15%
+  input
+    :width 80%
+  input.button
+    :width auto
+  textarea
+    :width 80%
+
+#avatar
+  :width 160px
+  :float left
+
+#search
+  .result
+    :width 100%
+    :margin-bottom 1em
+    .avatar
+      :width 160px
+      :float left
+    .info
+      .name
+        :font-size 1.2em
+
+#image
+  #manage
+    :padding-bottom 2em
+    form
+      label
+        :width 4em
+  #images
+    :text-align center
+    .image
+      :padding 0.2em
+      :padding-bottom 2em
+      :height 150px
+      :width 150px
+      :float left
