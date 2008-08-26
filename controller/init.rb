@@ -1,15 +1,13 @@
+# Add our helper directory for lookups
 Ramaze::Helper::PATH.unshift(__DIR__/'../')
 
-class AppController < Ramaze::Controller
+class Controller < Ramaze::Controller
   box = '<div class="%key" onclick="$(this).slideUp(250);">[Hide] %value</div>'
   trait :flashbox => box
 
-  def self.inherited(klass)
-    super
-    klass.helper :xhtml, :config, :user, :formatting,
-                 :form, :gravatar, :stack
-    klass.layout '/page'
-  end
+  helper :xhtml, :config, :user, :formatting, :form, :gravatar, :stack
+  layout '/layout'
+  engine :Haml
 
   private
 
@@ -39,7 +37,4 @@ class AppController < Ramaze::Controller
   end
 end
 
-require 'controller/image'
-require 'controller/message'
-require 'controller/blog'
 acquire 'controller/*.rb'

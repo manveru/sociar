@@ -1,4 +1,4 @@
-class MessageController < AppController
+class MessageController < Controller
   def index
     login_first
 

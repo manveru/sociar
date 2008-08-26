@@ -1,0 +1,11 @@
+#image
+  %h1= "#{@profile.name_linked}'s Images"
+  - if @private
+    #sub_menu
+      %a{:href => Rs(user.login, :public => true)} View your public images
+    #manage
+      %form{:method => 'POST', :action => '/image/save', :enctype => 'multipart/form-data', :name => :image}
+        = form_file 'Image', :image
+        = form_text 'Caption', :caption
+        %input{:type => :submit, :value => 'Upload Image', :name => :submit}
+  = render_template '../image/_list.haml'

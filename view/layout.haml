@@ -1,0 +1,55 @@
+!!! XML
+!!!
+
+%html
+  %head
+    %meta{'http-equiv' => "Content-Type", :content => 'text/html; charset=utf-8'}
+    %meta{:name => :description, :content => config.description}
+    %meta{:name => :keywords, :content => config.keywords.join(',')}
+    %title= @title ||= config.title
+    %link{:rel => 'shortcut icon', :href => '/favicon.ico', :type => 'image/x-icon'}
+    = css_for %w[ reset text clearfix common layout lightbox jqac ]
+    = js_for %w[ jquery lightbox jqac common ]
+  %body
+    #layout
+      #header.clearfix
+        #logo
+          %a{:href => '/'}
+            %img{:src => '/media/sociar.png', :alt => config.title}
+        #menu
+          .top
+            %a{:href => R(IndexController, :about)} About
+            - if logged_in?
+              - if user.is_admin?
+                %a{:href => R(AdminController)} Admin
+                %a{:href => R(IndexController)} Newest Stuff
+                %a{:href => R(AccountController, :logout)} Logout
+            - else
+              %a{:href => R(AccountController, :login)} Login
+              %a{:href => R(AccountController, :register)} Register
+
+
+        #searchbox
+          %form{:method => 'GET', :action => '/profile/search', :id => 'search-box', :name => :search}
+            %formfield
+              %label{:for => :g} Search
+              %input{:type => :text, :name => :g, :id => :g}
+
+
+      #flashbox= flashbox
+
+      #content.clearfix= @content
+
+      #footer.clearfix
+        .info
+          = config.description
+          by
+          %a{:href => "/profile/#{config.site.admin}"}= config.site.admin
+          \.
+          %br/
+          %a{:href => 'http://github.com/manveru/sociar'} Download Free
+          %a{:href => '#'} Demo
+          %a{:href => '#'} Contact Us
+          %a{:href => '/blog/manveru'} Blog
+        %a{:href => 'http://ramaze.net', :target => '_blank'}
+          %img{:src => '/media/ramaze_35x35.png', :alt => 'Powered by Ramaze'}

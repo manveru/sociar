@@ -1,10 +1,12 @@
 require 'configuration'
 
 require "env/sociar"
-require "env/#{SOCIAR.mode}"
-
-host_conf = "env/#{`hostname`.strip}.rb"
-require host_conf if File.file?(host_conf)
+begin
+  require "env/#{SOCIAR.mode}"
+  require "env/#{SOCIAR.host}"
+rescue LoadError => ex
+  Ramaze::Log.warn ex
+end
 
 s = SOCIAR.sequel
 DB = Sequel.connect s.db, :logger => s.logger

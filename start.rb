@@ -2,15 +2,16 @@ require 'rubygems'
 require 'ramaze'
 require 'maruku'
 require 'sequel'
-require 'scaffolding_extensions'
 
 $LOAD_PATH.unshift(__DIR__)
 
 require 'env'
+
 require 'vendor/flickr'
 require 'vendor/image_science_cropped_resize'
-acquire 'model/*.rb'
-require 'controller/app'
+
+require 'model/init'
+require 'controller/init'
 
 require 'db/init' if SOCIAR.mode == 'dev'
 

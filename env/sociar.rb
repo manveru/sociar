@@ -1,5 +1,6 @@
-SOCIAR = Configuration.for('sociar'){
-  mode 'dev'
+SOCIAR = Configuration.for :sociar do
+  mode :dev
+  host Kernel::`("hostname").strip #` avoid weird highlighting
 
   site do
     title "Sociar"
@@ -24,8 +25,8 @@ SOCIAR = Configuration.for('sociar'){
   end
 
   sequel do
+    db 'sqlite:///sociar.db'
     logger nil
-    # logger Logger.new($stdout)
   end
 
   mail do
@@ -33,4 +34,4 @@ SOCIAR = Configuration.for('sociar'){
     from "The Sociar Team <info@sociar.com>"
     registration_bcc = []
   end
-}
+end

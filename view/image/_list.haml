@@ -1,0 +1,8 @@
+#images
+  - @images.each do |image|
+    .image
+      = image.lightbox
+      - if @private
+        = image.delete_link
+  - if @images.empty?
+    No images

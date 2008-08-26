@@ -26,7 +26,7 @@ class Comment < Sequel::Model
   before_save{ self.updated_at = Time.now }
 
   def self.latest(n = 10)
-    order(:created_at.desc).limit(n).eager(:from)
+    order(:created_at.desc).eager(:from).limit(n)
   end
 
   def abstract(size = 50)

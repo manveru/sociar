@@ -1,4 +1,4 @@
-class AccountController < AppController
+class AccountController < Controller
   helper :simple_captcha, :identity
   layout '/minimal_layout'
 

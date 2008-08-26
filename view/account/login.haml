@@ -1,0 +1,15 @@
+#login
+  %form{:method => 'POST', :name => :login}
+    %fieldset
+      %legend Login
+      %p
+        %a{:href => Rs(:openid)} OpenID login is over here
+      = form_text 'Name', 'login', @login
+      = form_password 'Password', 'password'
+      = form_checkbox 'Remember me', 'remember', true
+
+      %input{:type => :submit, :value => 'Log-in Now', :class => :button}
+
+      .form-advice
+        %a{:href => Rs(:register)} Haven't got an account yet?
+        %a{:href => Rs(:forgot)} Forgot your password?

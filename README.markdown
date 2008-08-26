@@ -6,21 +6,21 @@ to build your own social network based on it.
 
 The underlying architecture is provided by the Ramaze web framework.
 
-# Features
+## Features
 
 Sociar provides
 
-# Obtaining
+## Obtaining
 
 Currently Sociar is available on github, for the installation you can either
 use git or download a tarball directly from [the Sociar github
 page](http://github.com/manveru/sociar)
 
-## Via git
+### Via git
 
     git clone git://github.com/manveru/sociar
 
-# Running
+## Running
 
 First you'll need the dependencies installed:
 
@@ -32,9 +32,9 @@ github as well.
 
     git clone git://github.com/manveru/ramaze
 
-# Setup
+## Setup
 
-# Contributing
+## Contributing
 
   git clone git://github.com/manveru/sociar
   cd sociar

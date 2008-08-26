@@ -1,0 +1,27 @@
+#blog
+  #sub_menu.clearfix
+    - if @user == user
+      %a{:href => @profile.to_url} &larr; Jump to Dashboard
+      %a{:href => Rs(:new)} Write a new post
+    - else
+      %a{:href => @profile.to_url}= "&larr; To #{h @profile.name}'s Profile"
+    %a{:href => R(BlogController, user.login)} All posts
+
+  .sidebar
+    .avatar
+      %img{:src => @profile.avatar(150), :alt => 'Avatar'}
+    .history
+      %h3 Blog Post History
+      - @blogs.each do |post|
+        .item
+          %a{:href => R(BlogController, post.to_url)}
+          .ago= "#{time_diff post.updated_at} ago"
+      - if @blogs.empty?
+        = "#{h @profile.name} has not blogged yet"
+
+  %h1= "#{h @profile.name}'s Blog"
+  - if @blog
+    = render_template '_post.haml'
+  - else
+    - @blogs.each do |blog|
+      = render_template '_post.haml', :blog => blog

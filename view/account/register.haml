@@ -1,0 +1,22 @@
+#register
+  %form{:method => 'POST', :action => '/account/register', :name => :register}
+    %fieldset
+      %legend Sign up
+
+      %p= "Welcome to #{config.title}, we are currently in private beta."
+
+      - @user.errors.full_messages.each do |msg|
+        %div{:style => 'background: #f00'}= h(msg)
+
+      = form_text 'Name', 'login', @login
+      = form_text 'Email', 'email', @email
+      = form_password 'Password', 'password'
+      = form_password 'Password confirmation', 'password_confirmation'
+      = form_text "What is #{simple_captcha}", 'captcha'
+      = form_checkbox 'Accept <a href="/tos">Terms of Service</a>', 'tos'
+      = form_checkbox 'Remember me', 'remember', true
+
+      %input{:type => :submit, :value => "Sign up Now", :class => :button}
+
+      .form-advice
+        %a{:href => Rs(:login)} Got an account already?

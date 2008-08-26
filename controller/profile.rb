@@ -1,4 +1,4 @@
-class ProfileController < AppController
+class ProfileController < Controller
   helper :gravatar
 
   def index(login = nil)

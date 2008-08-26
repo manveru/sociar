@@ -1,0 +1,51 @@
+#summary.clearfix
+  #avatar
+    %img{:src => @profile.avatar(150), :alt => 'Avatar'}
+  #name-location
+    %h1= @profile.name
+    = @profile.location_linked
+  %table#info= @profile.render_info
+
+#blog.clearfix.section
+  %h3 Most Recent Blog Posts
+  - blog_posts = @profile.blog_posts
+  - blog_posts.each do |post|
+    .post
+      - if user == @user
+        .modify
+          %a{:href => Rs(:edit, @blog.id)} Edit
+      %h4= post.title_linked
+      %p= post.abstract(200)
+  - if blog_posts.empty?
+    No Blog Posts
+
+#comments.clearfix.section
+  %h3 Comments
+  - @comments.each do |comment|
+    = render_template '../comment/_show.haml', :comment => comment, :size => nil
+  - if @comments.empty?
+    No Comments yet
+
+  - if logged_in? and user != @user
+    #leave-comment
+      %a{:onclick => "return $('#comment-form').toggle(500);"} Leave a comment
+      #comment-form
+        %form{:action => R(CommentController, :profile, @profile.id), :name => 'comment'}
+          %textarea{:name => :comment}~ ''
+          %input{:type => :submit, :value => 'Add Comment', :class => :button}
+      %script $('#comment-form').hide();
+
+#image.clearfix.section
+  %h3 Latest Images
+  = render_template '../image/_list.haml'
+
+#flickr.clearfix.section
+  %h3 Latest Flickr Pictures
+  - imgs = @profile.flickr_photos
+  - imgs.each do |img|
+    %a{:href => img}
+      %img{:src => img}
+  - if imgs.empty?
+    No Flickr images
+
+// vi: syntax=haml

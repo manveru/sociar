@@ -1,4 +1,4 @@
-class CommentController < AppController
+class CommentController < Controller
   # comment on profile
   # TODO
   def profile(id)

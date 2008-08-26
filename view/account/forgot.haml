@@ -1,0 +1,13 @@
+#forgot
+  %form{:method => 'POST', :name => 'login'}
+    %fieldset
+      %legend Recover Password
+
+      %p= A('Go back to login', :href => Rs(:login))
+
+      = form_text 'Email', 'email', @openid
+
+      %input{:type => :submit, :value => 'Send me a new password', :class => :button}
+
+      .form-advice
+        %a{:href => Rs(:register)} Haven't got an account yet?

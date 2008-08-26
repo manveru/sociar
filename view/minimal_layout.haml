@@ -1,0 +1,20 @@
+!!! XML
+!!!
+
+%html
+  %head
+    %meta{'http-equiv' => "Content-Type", :content => 'text/html; charset=utf-8'}
+    %meta{:name => :description, :content => config.description}
+    %meta{:name => :keywords, :content => config.keywords.join(',')}
+    %title= @title ||= config.title
+    %link{:rel => 'shortcut icon', :href => '/favicon.ico', :type => 'image/x-icon'}
+    = css_for %w[ reset text clearfix common minimal ]
+    = js_for %w[ jquery ]
+  %body
+    #layout
+      #header.clearfix
+        #logo
+          %a{:href => '/'}
+            %img{:src => '/media/sociar.png', :alt => config.title}
+
+      #content= @content

@@ -1,0 +1,11 @@
+#login
+  %form{:method => 'POST', :name => :login, :action => Rs(:openid_begin)}
+    %fieldset
+      %legend OpenID Login
+      %p
+        %a{:href => Rs(:login)} Standard login is over here
+      %label{:for => :url} Identity URL:
+      %input{:type => :text, :name => :url, :id => :url, :value => h(@url)}
+      %input{:type => :submit, :value => 'Log-in Now', :class => :button}
+      .form-advice
+        %a{:href => Rs(:register)} Haven't got an account yet?

@@ -1,0 +1,10 @@
+.comment.clearfix
+  .avatar
+    = @comment.from.avatar_linked_image(50)
+  .message
+    .head
+      %span.time= "#{time_diff @comment.updated_at} ago,"
+      = @comment.from.name_linked
+      wrote:
+    .body
+      = h(@comment.abstract(@size))

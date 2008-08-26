@@ -1,0 +1,7 @@
+.post
+  - if user == @user
+    .modify
+      %a{:href => Rs(:edit, @blog.id)} Edit
+  %h2
+    %a{:href => R(BlogController, @blog.to_url)}= h(@blog.title)
+  %p= h(@blog.body).gsub("\n", "<br />")

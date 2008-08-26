@@ -1,0 +1,11 @@
+#profile
+  #sub_menu.clearfix
+    - if @private
+      %a{:href => Rs(user.login, :public => true)} View public profile
+      %a{:href => R(MessageController)} Message center
+      %a{:href => R(ImageController)} Manage images
+      %a{:href => R(BlogController, user.login)} Your blog
+      %a{:href => Rs(:edit)} Account settings
+    = render_template '_show.haml'
+    - if @private
+      render_template 'getting_started.haml'

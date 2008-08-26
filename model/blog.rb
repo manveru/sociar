@@ -22,8 +22,8 @@ class Blog < Sequel::Model
   validations.clear
   validates do
     presence_of :title, :body, :profile_id
-    format_of :title, :with => /\A.*\S+.*\Z/, :message => 'is empty'
-    format_of :body, :with => /\A.*\S+.*\Z/, :message => 'is empty'
+    format_of :title, :with => /\A.*\S+.*\Z/m, :message => 'is empty'
+    format_of :body, :with => /\A.*\S+.*\Z/m, :message => 'is empty'
   end
 
   hooks.clear

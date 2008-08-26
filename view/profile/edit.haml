@@ -1,0 +1,46 @@
+#profile-edit.clearfix
+  #sub_menu
+    %a{:href => Rs(user.login)} &larr; Jump to Dashboard
+    %a{:href => Rs(user.login, :public => true)} View public profile
+
+  %h1 Edit Profile
+
+  %form{:method => 'POST', :id => 'general', :action => '/profile/edit/general', :name => 'profile/edit'}
+    %fieldset
+      %legend General Info
+
+      = form_text 'Email', :email, @profile.email
+      = form_text 'Name', :name, @profile.name
+      = form_text 'Location', :location, @profile.location
+      = form_text 'Website', :website, @profile.website
+      = form_text 'Blog', :blog, @profile.blog
+      = form_text 'Flickr page', :flickr, @profile.flickr
+      = form_text 'Youtube name', :youtube_name, @profile.youtube_name
+      = form_text 'Flickr username', :flickr_name, @profile.flickr_name
+      = form_text 'AIM Name', :aim_name, @profile.aim_name
+      = form_text 'GTalk name', :gtalk_name, @profile.gtalk_name
+      = form_text 'iChat name', :ichat_name, @profile.ichat_name
+      = form_textarea 'About me', :about_me, @profile.about_me
+      = form_submit 'Update General Info'
+
+  %form{:method => 'POST', :id => "openid" :action => "/profile/edit/openid", :name => "profile/openid"}
+    %fieldset
+      %legend Change OpenID
+
+      = form_text 'Your OpenID', :openid, user.openid
+      = form_submit 'Change OpenID'
+
+  %form{:method => 'POST', :id => "password" :action => "/profile/edit/password", :name => "profile/password"}
+    %fieldset
+      %legend Change Password
+
+      = form_password 'Current Password', :current
+      = form_password 'New Password', :new
+      = form_password 'Confirm Password', :confirm
+      = form_submit 'Change Password'
+
+  %form{:method => 'POST', :id => "delete" :action => "/profile/delete", :name => "profile/delete"}
+    %fieldset
+      %legend Delete Account
+
+      = form_submit 'Delete this account and all associated data'

@@ -1,0 +1,12 @@
+#search
+  %h1 Search
+  = render_template '_search.haml'
+  - unless @results.empty?
+    %h2 Results
+    - @results.each do |profile|
+      .result.clearfix
+      .avatar= profile.avatar_linked_image(100)
+      .info
+        = profile.name_linked
+        %br/
+        = profile.location_linked

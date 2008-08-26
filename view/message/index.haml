@@ -1,0 +1,35 @@
+#message
+  %h1 Message Center
+  %h2
+    %a{:onclick => "return $('#send').toggle(500);"} Send a message
+
+  #send
+    %form{:method => 'POST', :action => '/message', :name => 'message/send'}
+      %fieldset
+        %legend Send a message
+
+        %label{:for => :login} To:
+        %input{:type => :text, :name => :login, :id => :login, :onfocus => "$(this).autocomplete({ajax_get:message, minchars: 1, autowidth: true})"}
+        .clearfix
+        = form_text 'Subject', :subject, @message.subject
+        = form_textarea 'Message', :body, @message.body
+        %input{:type => :submit, :value => 'Send'}
+    %script $('#send').hide();
+
+  #history
+    %h2 Received
+    - @received.each do |message|
+      .message
+        .from= "From: #{message.from.name_linked}"
+        .subject= "Subject: #{h(message.subject)}"
+        .body= h(message.body)
+    - if @received.empty?
+      You have not received any messages yet
+    %h2 Sent
+    - @sent.each do |message|
+      .message
+        .to= "To: #{message.to._name_linked}"
+        .subject= "Subject: #{h(message.subject)}"
+        .body= h(message.body)
+    - if @sent.empty?
+      You have not sent any messages yet

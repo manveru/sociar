@@ -1,0 +1,31 @@
+#banner
+  %img{:src => '/media/sociar_caption.png', :alt => 'Sociar - Society reactor'}
+
+#latest
+  #comments.latest-column
+    %h3 Latest Comments
+    - @comments.each do |comment|
+      = render_template 'comment/_show.haml', :comment => comment, :size => 50
+    - if @comments.empty?
+      No Comments
+
+  #members.latest-column
+    %h3 Newest Members
+    - @profiles.each do |profile|
+      .member.clearfix
+        .avatar= profile.avatar_linked_image(50)
+      .info
+        = profile.name_linked
+        %br/
+        = profile.location_linked
+    - if @profiles.empty?
+      No Members
+
+  #images.latest-column
+    %h3 Newest Images
+    - @images.each do |image|
+      .image= image.lightbox(:medium)
+    - if @images.empty?
+      No Images
+
+-# vi: syntax=haml

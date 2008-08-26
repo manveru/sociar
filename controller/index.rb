@@ -1,4 +1,4 @@
-class IndexController < AppController
+class IndexController < Controller
   map '/'
 
   def index

@@ -1,4 +1,4 @@
-class ImageController < AppController
+class ImageController < Controller
   def index(login = nil)
     if @user = login_or_user(login)
       @images = @profile.images

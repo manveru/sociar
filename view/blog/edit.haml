@@ -1,0 +1,15 @@
+#blog-mod
+  #sub_menu
+    %a{:href => @profile.to_url} &larr; Jump to Dashboard
+    %a{:href => Rs(user.login)} &larr; Back to Blog
+  %form{:method => 'POST'}
+    %fieldset
+      %legend= @legend
+
+      - @user.errors.full_messages.each do |msg|
+        %div{:style => 'background: #f00'}= h(msg)
+
+      = form_text 'Title', :title, @post.title
+      = form_textarea 'Body', :body, @post.body
+
+      %input{:type => :submit, :value => @submit, :class => :button}
