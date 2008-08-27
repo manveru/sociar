@@ -14,10 +14,10 @@
     - @profiles.each do |profile|
       .member.clearfix
         .avatar= profile.avatar_linked_image(50)
-      .info
-        = profile.name_linked
-        %br/
-        = profile.location_linked
+        .info
+          = profile.name_linked
+          %br/
+          = profile.location_linked
     - if @profiles.empty?
       No Members
 
