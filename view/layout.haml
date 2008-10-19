@@ -20,8 +20,8 @@
           .top
             %a{:href => R(IndexController, :about)} About
             - if logged_in?
-              - if user.is_admin?
-                %a{:href => R(AdminController)} Admin
+              - if user.is_admin
+                / %a{:href => R(AdminController)} Admin
                 %a{:href => R(IndexController)} Newest Stuff
                 %a{:href => R(AccountController, :logout)} Logout
             - else
