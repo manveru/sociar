@@ -14,7 +14,7 @@ require 'vendor/image_science_cropped_resize'
 require 'model/init'
 require 'controller/init'
 
-# require 'db/init' if SOCIAR.mode == 'dev'
+require 'db/init' if SOCIAR.mode == :dev
 
 r = SOCIAR.ramaze
 
