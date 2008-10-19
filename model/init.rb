@@ -1,2 +1,2 @@
 acquire 'model/*.rb'
-require 'db/init'
+# require 'db/init'

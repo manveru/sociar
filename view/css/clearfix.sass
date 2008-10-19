@@ -1,0 +1,36 @@
+.alpha
+  :margin-left 0px
+
+.omega
+  :margin-right 0px
+
+html body *
+  div.clear, li.clear, dd.clear, span.clear
+    :background none
+    :border 0
+    :clear both
+    :display block
+    :float none
+    :font-size 0
+    :list-style none
+    :margin 0
+    :padding 0
+    :overflow hidden
+    :visibility hidden
+    :width 0
+    :height 0
+
+.clearfix
+  :display inline-block
+  :display block
+
+  &:after
+    :clear both
+    :content '.'
+    :display block
+    :visibility hidden
+    :height 0
+
+
+* html .clearfix
+  :height 1%

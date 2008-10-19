@@ -22,11 +22,18 @@ class AccountController < Controller
   def login
     redirect_referrer if logged_in?
     push request.referrer unless inside_stack?
+
+    case request[:fail]
+    when 'session'
+      flash[:bad] =
+        'Failed to login, please make sure you have cookies enabled for this site'
+    end
+
     return unless request.post?
 
     if user_login
       flash[:good] = "Welcome back #{user.login}"
-      answer R(ProfileController, user.login)
+      redirect Rs(:after_login)
     end
   end
 
@@ -43,6 +50,20 @@ class AccountController < Controller
       openid_begin
     else
       flash[:bad] = flash[:error] || "Bleep"
+    end
+  end
+
+  # This method is simply to check whether we really did login and the browser
+  # sends us a cookie, if we're not logged in by now it would indicate that the
+  # client doesn't support cookies or has it disabled and so unable to use this
+  # site.
+  # For some reason, the arora seems to have problems handling cookies on
+  # localhost from rack.
+  def after_login
+    if logged_in?
+      answer R(ProfileController, user.login)
+    else
+      redirect Rs(:login, :fail => :session)
     end
   end
 
