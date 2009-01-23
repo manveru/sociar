@@ -1,1 +1,1 @@
-acquire 'model/*.rb'
+Ramaze::acquire 'model/*.rb'
