@@ -58,17 +58,8 @@ class Profile < Sequel::Model
     length_of :email, :within => 3..255
   end
 
-  # Hooks
-  hooks.clear
-
-  before_create do
-    self.created_at = Time.now
-    self.updated_at = Time.now
-  end
-
-  before_save do
-    self.updated_at = Time.now
-  end
+  before_create(:time){ self.created_at = self.updated_at = Time.now }
+  before_save(:time){ self.updated_at = Time.now }
 
   def self.search(query = {})
     return [] if query.empty?

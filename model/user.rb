@@ -42,15 +42,13 @@ class User < Sequel::Model
     length_of :password, :within => 6..255
   end
 
-  # Hooks
-  hooks.clear
+  before_create(:time){ self.updated_at = self.created_at = Time.now }
+  before_save(:time){ self.updated_at = Time.now }
 
-  before_create{ self.created_at = Time.now }
-  before_save{ self.updated_at = Time.now }
-
-  after_create do
-    self.crypted_password = encrypt(password)
+  after_create(:password) do
+    eelf.crypted_password = encrypt(password)
     self.profile = Profile.create(:email => email, :user => self, :login => login)
+    @new = false # avoid bug where Sequel uses INSERT instead of UPDATE
     save
   end
 

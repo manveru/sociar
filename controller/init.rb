@@ -37,4 +37,14 @@ class Controller < Ramaze::Controller
   end
 end
 
-acquire 'controller/*.rb'
+require 'controller/account'
+require 'controller/blog'
+require 'controller/comment'
+require 'controller/css'
+require 'controller/feed'
+require 'controller/friend'
+require 'controller/home'
+require 'controller/image'
+require 'controller/index'
+require 'controller/message'
+require 'controller/profile'

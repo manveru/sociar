@@ -36,15 +36,16 @@ class BlogController < Controller
   private
 
   def save
-    if request.post?
-      @post.title = request[:title]
-      @post.body = request[:body]
-      if @post.save
-        flash[:good] = "Created post"
-        redirect Rs(:/, @post.to_url)
-      else
-        flash[:bad] = "Couldn't create post"
-      end
+    return unless request.post?
+
+    @post.title = request[:title]
+    @post.body = request[:body]
+
+    if @post.save
+      flash[:good] = "Created post"
+      redirect Rs(:/, @post.to_url)
+    else
+      flash[:bad] = "Couldn't create post"
     end
   end
 end

@@ -5,7 +5,7 @@ begin
   require "env/#{SOCIAR.mode}"
   require "env/#{SOCIAR.host}"
 rescue LoadError => ex
-  Ramaze::Log.warn ex
+  Ramaze::Log.warn ex.message
 end
 
 s = SOCIAR.sequel

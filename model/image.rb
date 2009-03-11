@@ -26,18 +26,9 @@ class Image < Sequel::Model
 
   create_table unless table_exists?
 
-  # Hooks
-  hooks.clear
-
-  before_create do
-    self.created_at = Time.now
-  end
-
-  before_save do
-    generate_thumbnails(SIZES)
-    self.updated_at = Time.now
-  end
-
+  before_create(:time){ self.updated_at = self.created_at = Time.now }
+  before_save(:time){ self.updated_at = Time.now }
+  before_save(:thumbnail){ generate_thumbnails(SIZES) }
 
   def file(size = nil)
     File.join(PATH, filename(size))

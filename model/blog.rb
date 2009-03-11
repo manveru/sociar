@@ -26,10 +26,9 @@ class Blog < Sequel::Model
     format_of :body, :with => /\A.*\S+.*\Z/m, :message => 'is empty'
   end
 
-  hooks.clear
-  before_create{ self.created_at = Time.now }
-  before_save{ self.updated_at = Time.now }
-  after_create do
+  before_create(:time){ self.updated_at = self.created_at = Time.now }
+  before_save(:time){ self.updated_at = Time.now }
+  after_create(:update_feed) do
     # feed_item = FeedItem.create(:item => self)
     # affected_profiles.each do |pr|
     #   pr.feed_items << feed_item
