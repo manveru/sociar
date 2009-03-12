@@ -37,7 +37,5 @@ class Controller < Ramaze::Controller
   end
 end
 
-require 'controller/image'
-require 'controller/blog'
-
+Ramaze::acquire 'controller/{image,blog,message}.rb'
 Ramaze::acquire 'controller/*.rb'
