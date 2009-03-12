@@ -22,8 +22,8 @@ class Comment < Sequel::Model
   validations.clear
   validates_presence_of :body, :from, :to
 
-  before_create{ self.created_at = Time.now }
-  before_save{ self.updated_at = Time.now }
+  before_create(:time){ self.updated_at = self.created_at = Time.now }
+  before_save(:time){ self.updated_at = Time.now }
 
   def self.latest(n = 10)
     order(:created_at.desc).eager(:from).limit(n)

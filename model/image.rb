@@ -28,7 +28,7 @@ class Image < Sequel::Model
 
   before_create(:time){ self.updated_at = self.created_at = Time.now }
   before_save(:time){ self.updated_at = Time.now }
-  before_save(:thumbnail){ generate_thumbnails(SIZES) }
+  before_save(:thumb){ generate_thumbnails(SIZES) }
 
   def file(size = nil)
     File.join(PATH, filename(size))

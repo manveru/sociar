@@ -1,5 +1,5 @@
 # Add our helper directory for lookups
-Ramaze::Helper::PATH.unshift(__DIR__/'../')
+Ramaze::Helper::PATH.unshift(__DIR__('../'))
 
 class Controller < Ramaze::Controller
   box = '<div class="%key" onclick="$(this).slideUp(250);">[Hide] %value</div>'
@@ -37,14 +37,7 @@ class Controller < Ramaze::Controller
   end
 end
 
-require 'controller/account'
-require 'controller/blog'
-require 'controller/comment'
-require 'controller/css'
-require 'controller/feed'
-require 'controller/friend'
-require 'controller/home'
 require 'controller/image'
-require 'controller/index'
-require 'controller/message'
-require 'controller/profile'
+require 'controller/blog'
+
+Ramaze::acquire 'controller/*.rb'

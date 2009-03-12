@@ -28,12 +28,6 @@ class Blog < Sequel::Model
 
   before_create(:time){ self.updated_at = self.created_at = Time.now }
   before_save(:time){ self.updated_at = Time.now }
-  after_create(:update_feed) do
-    # feed_item = FeedItem.create(:item => self)
-    # affected_profiles.each do |pr|
-    #   pr.feed_items << feed_item
-    # end
-  end
 
   def user
     profile.user
