@@ -18,6 +18,7 @@ class User < Sequel::Model
     boolean :active,            :default => true
     boolean :is_admin,          :default => false
     boolean :can_send_messages, :default => true
+    boolean :tos,               :default => false
 
     varchar :email_verification, :size => 255
     boolean :email_verified
@@ -35,7 +36,7 @@ class User < Sequel::Model
   validations.clear
   validates do
     uniqueness_of :login
-    format_of :login, :with => /\A[\w.]+\z/
+    format_of :login, :with => /\A[\w. ]+\z/
     length_of :login, :within => 3..255
 
     confirmation_of :password
@@ -76,12 +77,22 @@ class User < Sequel::Model
   end
 
   def self.prepare(hash)
-    user = new(hash)
-    user.email = hash['email']
-    user.password = hash['password']
-    user.password_confirmation = hash['password_confirmation']
+    login, openid, email, password, password_confirmation =
+      hash.values_at(*%w[login openid email password password_confirmation])
+
+    user = new(:login => login, :email => email, :password => password,
+               :password_confirmation => password_confirmation)
     user.salt = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{user.login}--")
     user
+
+#    clean_hash = hash.
+#    user = new(hash)
+#    #user = new
+#    user.email = hash['email']
+#    user.password = hash['password']
+#    user.password_confirmation = hash['password_confirmation']
+#    user.salt = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{user.login}--")
+#    user
   end
 
   def self.authenticate(hash)
